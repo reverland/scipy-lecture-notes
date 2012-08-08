@@ -1,47 +1,66 @@
-
 .. _matplotlib:
 
-Matplotlib
-==========
+===================
+Matplotlib tutorial
+===================
 
-:author: Mike Müller
+:authors: Mike Müller, Nicolas P. Rougier
+:audience: Beginner level
+
+.. contents::
+   :local:
+   :depth: 1
+
 
 Introduction
-------------
+============
 
-``matplotlib`` is probably the single most used Python package
-for 2D-graphics. It provides both a very quick way to visualize
-data from Python and publication-quality figures in many formats.
-We are going to explore matplotlib in interactive mode covering
-most common cases. We also look at the class library which is provided
-with an object-oriented interface.
+matplotlib is probably the single most used Python package for
+2D-graphics. It provides both a very quick way to visualize data from Python
+and publication-quality figures in many formats.  We are going to explore
+matplotlib in interactive mode covering most common cases. We also look at the
+class library which is provided with an object-oriented interface.
 
-IPython and the pylab mode
----------------------------
+**IPython and the pylab mode**
 
-IPython
-........
+`IPython <http://ipython.org/>`_ is an enhanced interactive Python shell that
+has lots of interesting features including named inputs and outputs, access to
+shell commands, improved debugging and many more. When we start it with the
+command line argument -pylab (--pylab since IPython version 0.12), it
+allows interactive matplotlib sessions that has Matlab/Mathematica-like
+functionality.
 
-`IPython <http://ipython.org/>`_ is an enhanced interactive Python shell
-that has lots of interesting features including named inputs and outputs,
-access to shell commands, improved debugging and many more. When we start
-it with the command line argument ``-pylab`` (``--pylab`` since IPython
-version 0.12), it allows interactive ``matplotlib`` sessions that has
-Matlab/Mathematica-like functionality.
+**pylab**
 
-pylab
-.......
+pylab provides a procedural interface to the matplotlib object-oriented
+plotting library. It is modeled closely after Matlab(TM). Therefore, the
+majority of plotting commands in pylab has Matlab(TM) analogs with similar
+arguments.  Important commands are explained with interactive examples.
 
-``pylab`` provides a procedural interface to the ``matplotlib``
-object-oriented plotting library. It is modeled closely
-after Matlab(TM). Therefore, the majority of plotting
-commands in ``pylab`` has Matlab(TM) analogs with similar arguments.
-Important commands are explained with interactive examples.
 
-Simple Plots
--------------
 
-Let's start an interactive session::
+
+Simple plot
+===========
+
+In this section, we want to draw the cosine and sine functions on the same
+plot. Starting from the default settings, we'll enrich the figure step by step
+to make it nicer.
+
+First step is to get the data for the sine and cosine functions:
+
+.. code-block:: python
+
+   from pylab import *
+
+   X = np.linspace(-np.pi, np.pi, 256,endpoint=True)
+   C,S = np.cos(X), np.sin(X)
+
+
+X is now a numpy array with 256 values ranging from -π to +π (included). C is
+the cosine (256 values) and S is the sine (256 values).
+
+For running example, you can type them in an IPython interactive session
 
     $ ipython -pylab
 
@@ -58,313 +77,440 @@ This brings us to the IPython prompt:
     Welcome to pylab, a matplotlib-based Python environment.
     For more information, type 'help(pylab)'.
 
-.. code-block:: ipython
-        
-    In [1]:
 
-Now we can make our first, really simple plot:
+or you can download each of the example and run it using regular python:
 
-.. code-block:: ipython
-
-    In [1]: import numpy as np
-    In [2]: import pylab as pl
-    In [3]: pl.plot(np.range(10))
-    Out[3]: [<matplotlib.lines.Line2D instance at 0x01AA26E8>]
-
-    In [4]:
-
-The numbers form 0 through 9 are plotted:
-
-.. image:: figures/simple.png
-    :width: 50%
-
-.. note:: 
-   
-   In the following, we use the Python prompt ">>>" rather than
-   the IPython one, as it facilitates copy-pasting in IPython (using the
-   `%doctest_mode`).
-
-.. for doctests 
-  >>> import numpy as np
-  >>> import pylab as pl
+    $ python exercice_1.py
 
 
-Now we can interactively add features to or plot::
 
-    >>> pl.xlabel('measured')  # doctest: +ELLIPSIS
-    <matplotlib.text.Text instance at ...>
+Using defaults
+--------------
 
-    >>> pl.ylabel('calculated') # doctest: +ELLIPSIS
-    <matplotlib.text.Text instance at ...>
-
-    >>> pl.title('Measured vs. calculated') +ELLIPSIS
-    <matplotlib.text.Text instance at ...>
-
-    >>> pl.grid(True)
-
-We get a reference to our plot::
-
-    >>> my_plot = pl.gca()
-
-and to our line we plotted, which is the first in the plot::
-    
-    >>> line = my_plot.lines[0]
-
-Now we can set properties using ``set_something`` methods::
-
-    >>> line.set_marker('o')
-
-or the ``setp`` function::
-
-    >>> setp(line, color='g')
-    [None]
-
-To apply the new properties we need to redraw the screen::
-
-    >>> draw()
-
-We can also add several lines to one plot::
-
-    >>> x = np.arange(100)
-
-    >>> linear = np.arange(100)
-
-    >>> square = [v * v for v in np.arange(0, 10, 0.1)]
-
-    >>> lines = pl.plot(x, linear, x, square)
-    
-Let's add a legend::
-
-    >>> pl.legend(('linear', 'square'))     # doctest: +ELLIPSIS
-    <matplotlib.legend.Legend instance at ...>
-
-This does not look particularly nice. We would rather like to have it at
-the left. So we clean the old graph (clf stands for 'clear figure)::
-
-    >>> pl.clf()
-
-and print it anew providing new line styles (a green dotted
-line with crosses for the linear and a red dashed line with
-circles for the square graph)::
-
-    >>> lines = plot(x, linear, 'g:+', x, square, 'r--o')
-
-Now we add the legend at the upper left corner::
-
-    >>> l = legend(('linear', 'square'), loc='upper left')
-
-The result looks like this:
-
-.. image:: figures/legend.png
-    :width: 50%
+.. image:: figures/exercice_1.png
+   :align: right
 
 
-.. topic:: Exercises
-    :class: green
-
-    1) Plot a simple graph of a sinus function in the range 0 to 3
-       with a step size of 0.01.
-
-    2) Make the line red. Add diamond-shaped markers with size of 5.
-
-    3) Add a legend and a grid to the plot.
+Matplotlib comes with a set of default settings that allow to customize all
+kinds of properties. You can `control
+<http://matplotlib.sourceforge.net/users/customizing.html>`_ the defaults of
+almost every property in matplotlib: figure size and dpi, line width, color and
+style, axes, axis and grid properties, text and font properties and so on.
 
 
-Properties
-----------
+.. code-block:: python
 
-So far we have used properties for the lines.
-There are three possibilities to set them:
+   from pylab import *
 
-1) as keyword arguments at creation time:
-   ``plot(x, linear, 'g:+', x, square, 'r--o')``.
+   X = np.linspace(-np.pi, np.pi, 256,endpoint=True)
+   C,S = np.cos(X), np.sin(X)
 
-2) with the function ``setp``: ``setp(line, color='g')``.
+   plot(X,C)
+   plot(X,S)
 
-3) using the ``set_something`` methods: ``line.set_marker('o')``
+   show()
 
-Lines have several properties as shown in the following table:
+**Documentation reference**
 
-=============== =====================================================================
-Property        Value
-=============== =====================================================================
-alpha           alpha transparency on 0-1 scale
-antialiased     True or False - use antialised rendering
-color           matplotlib color arg
-data_clipping   whether to use numeric to clip data
-label           string optionally used for legend
-linestyle       one of ``-`` ``:`` ``-.`` ``-``
-linewidth       float, the line width in points
-marker          one of ``+`` ``,`` ``o`` ``.`` ``s`` ``v`` ``x`` ``>`` ``<``, etc
-markeredgewidth line width around the marker symbol
-markeredgecolor edge color if a marker is used
-markerfacecolor face color if a marker is used
-markersize      size of the marker in points
-=============== =====================================================================
-
-There are many line styles that can be specified with symbols:
-
-=========== ======================================
-Symbol      Description
-=========== ======================================
- ``-``      solid line
- ``--``     dashed line
- ``-.``     dash-dot line
- ``:``      dotted line
- ``.``      points
- ``,``      pixels
- ``o``      circle symbols
- ``^``      triangle up symbols
- ``v``      triangle down symbols
- ``<``      triangle left symbols
- ``>``      triangle right symbols
- ``s``      square symbols
- ``+``      plus symbols
- ``x``      cross symbols
- ``D``      diamond symbols
- ``d``      thin diamond symbols
- ``1``      tripod down symbols
- ``2``      tripod up symbols
- ``3``      tripod left symbols
- ``4``      tripod right symbols
- ``h``      hexagon symbols
- ``H``      rotated hexagon symbols
- ``p``      pentagon symbols
- ``|``      vertical line symbols
- ``_``      horizontal line symbols
- ``steps``  use gnuplot style 'steps' # kwarg only
-=========== ======================================
- 
-Colors can be given in many ways: one-letter abbreviations, gray scale
-intensity from 0 to 1, RGB in hex and tuple format as well as
-any legal html color name.
-
-The one-letter abbreviations are very handy for quick work.
-With following you can get quite a few things done:
-
-============ =========
-Abbreviation Color
-============ =========
-    b        blue
-    g        green
-    r        red
-    c        cyan
-    m        magenta
-    y        yellow
-    k        black
-    w        white
-============ =========
-
-Other objects also have properties. The following table list
-the text properties:
-
-==================== ========================================================== 
-Property             Value
-==================== ==========================================================
-alpha                alpha transparency on 0-1 scale
-color                matplotlib color arg
-family               set the font family, eg sans-serif, cursive, fantasy
-fontangle            the font slant, one of normal, italic, oblique
-horizontalalignment  left, right or center
-multialignment       left, right or center only for multiline strings
-name                 font name, eg, Sans, Courier, Helvetica
-position             x,y location
-variant              font variant, eg normal, small-caps
-rotation             angle in degrees for rotated text
-size                 fontsize in points, eg, 8, 10, 12
-style                font style, one of normal, italic, oblique
-text                 set the text string itself
-verticalalignment    top, bottom or center
-weight               font weight, e.g. normal, bold, heavy, light
-==================== ==========================================================
-
-.. topci:: Exercise
-    :class: green
-
-    Apply different line styles to a plot. Change line color and
-    thickness as well as the size and the kind of the marker.
-    Experiment with different styles.
+ * `plot tutorial <http://matplotlib.sourceforge.net/users/pyplot_tutorial.html>`_
+ * `plot() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.plot>`_
 
 
-Text
+
+
+Instantiating defaults
+----------------------
+
+.. image:: figures/exercice_2.png
+   :align: right
+
+
+In the script below, we've instantiated (and commented) all figure settings
+such that it shows what are the default settings that influence the
+rendering. We obtain the exact same figure but now you can play with the
+different parameters to explore how they affect rendering (see `Line
+properties`_ and `Line styles`_ below).
+
+.. code-block:: python
+
+   # Import everything from matplotlib (numpy is accessible via 'np' alias)
+   from pylab import *
+
+   # Create a new figure of size 8x6 points, using 100 dots per inch
+   figure(figsize=(8,6), dpi=80)
+
+   # Create a new subplot from a grid of 1x1
+   subplot(111)
+
+   X = np.linspace(-np.pi, np.pi, 256,endpoint=True)
+   C,S = np.cos(X), np.sin(X)
+
+   # Plot cosine using blue color with a continuous line of width 1 (pixels)
+   plot(X, C, color="blue", linewidth=1.0, linestyle="-")
+
+   # Plot sine using green color with a continuous line of width 1 (pixels)
+   plot(X, S, color="green", linewidth=1.0, linestyle="-")
+
+   # Set x limits
+   xlim(-4.0,4.0)
+
+   # Set x ticks
+   xticks(np.linspace(-4,4,9,endpoint=True))
+
+   # Set y limits
+   ylim(-1.0,1.0)
+
+   # Set y ticks
+   yticks(np.linspace(-1,1,5,endpoint=True))
+
+   # Save figure using 72 dots per inch
+   # savefig("exercice_2.png",dpi=72)
+
+   # Show result on screen
+   show()
+
+**Documentation reference**
+
+ * `Customizing matplotlib <http://matplotlib.sourceforge.net/users/customizing.html>`_
+
+
+Changing colors and line widths
+--------------------------------
+
+.. image:: figures/exercice_3.png
+   :align: right
+
+
+First step, we want to have the cosine in blue and the sine in red and a
+slighty thicker line for both of them. We'll also slightly alter the figure
+size to make it more horizontal.
+
+.. code-block:: python
+
+   ...
+   figure(figsize=(10,6), dpi=80)
+   plot(X, C, color="blue", linewidth=2.5, linestyle="-")
+   plot(X, S, color="red",  linewidth=2.5, linestyle="-")
+   ...
+
+**Complete source**: `exercice_3.py <scripts/exercice_3.py>`_
+
+**Documentation reference**
+
+ * `Controlling line properties <http://matplotlib.sourceforge.net/users/pyplot_tutorial.html#controlling-line-properties>`_
+ * `Line api <http://matplotlib.sourceforge.net/api/artist_api.html#matplotlib.lines.Line2D>`_
+
+Setting limits
+--------------
+
+.. image:: figures/exercice_4.png
+   :align: right
+
+
+Current limits of the figure are a bit too tight and we want to make some space
+in order to clearly see all data points.
+
+.. code-block:: python
+
+   ...
+   xlim(X.min()*1.1, X.max()*1.1)
+   ylim(C.min()*1.1, C.max()*1.1)
+   ...
+
+**Complete source**: `exercice_4.py <scripts/exercice_4.py>`_
+
+**Documentation reference**
+
+ * `xlim() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.xlim>`_
+ * `ylim() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.ylim>`_
+
+
+
+Setting ticks
+-------------
+
+.. image:: figures/exercice_5.png
+   :align: right
+
+Current ticks are not so good because they do not show interesting values
+(+/-π,+/-π/2) for sine and cosine. We'll change them such that they show only
+these values.
+
+.. code-block:: python
+
+   ...
+   xticks( [-np.pi, -np.pi/2, 0, np.pi/2, np.pi])
+   yticks([-1, 0, +1])
+   ...
+
+**Complete source**: `exercice_5.py <scripts/exercice_5.py>`_
+
+**Documentation reference**
+
+ * `xticks() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.xticks>`_
+ * `yticks() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.yticks>`_
+ * `Tick container <http://matplotlib.sourceforge.net/users/artists.html#axis-container>`_
+ * `Tick locating and formatting <http://matplotlib.sourceforge.net/api/ticker_api.html>`_
+
+
+Setting tick labels
+-------------------
+
+.. image:: figures/exercice_6.png
+   :align: right
+
+Ticks are now properly placed but their label is not very explicit. We could
+guess that 3.142 is π but it would be better to make it explicit. When we set
+ticks values, we can also provide a corresponding label in the second argument
+list. Note that we'll use latex to allow for nice rendering of the label.
+
+.. code-block:: python
+
+   ...
+   xticks( [-np.pi,    -np.pi/2,    0,      np.pi/2,     np.pi],
+           [r'$-\pi$', r'$-\pi/2$', r'$0$', r'$+\pi/2$', r'$+\pi$'])
+
+   yticks( [-1,  0,   +1],
+           [r'$-1$', r'$0$', r'$+1$'])
+   ...
+
+
+**Complete source**: `exercice_6.py <scripts/exercice_6.py>`_
+
+**Documentation reference**
+
+ * `xticks() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.xticks>`_
+ * `yticks() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.yticks>`_
+ * `set_xticklabels() <http://matplotlib.sourceforge.net/api/axes_api.html?#matplotlib.axes.Axes.set_xticklabels>`_
+ * `set_yticklabels() <http://matplotlib.sourceforge.net/api/axes_api.html?#matplotlib.axes.Axes.set_yticklabels>`_
+ * `Working with text <http://matplotlib.sourceforge.net/users/index_text.html>`_
+
+
+
+Moving spines
+-------------
+
+.. image:: figures/exercice_7.png
+   :align: right
+
+Spines are the lines connecting the axis tick marks and noting the boundaries
+of the data area. They can be placed at arbitrary positions and until now, they
+were on the border of the axis. We'll change that since we want to have them in
+the middle. Since there are four of them (top/bottom/left/right), we'll discard
+the top and right by setting their color to none and we'll move the bottom and
+left ones to coordinate 0 in data space coordinates.
+
+
+.. code-block:: python
+
+   ...
+   ax = gca()
+   ax.spines['right'].set_color('none')
+   ax.spines['top'].set_color('none')
+   ax.xaxis.set_ticks_position('bottom')
+   ax.spines['bottom'].set_position(('data',0))
+   ax.yaxis.set_ticks_position('left')
+   ax.spines['left'].set_position(('data',0))
+   ...
+
+**Complete source**: `exercice_7.py <scripts/exercice_7.py>`_
+
+**Documentation reference**
+
+ * `Spines <http://matplotlib.sourceforge.net/api/spines_api.html#matplotlib.spines>`_
+ * `Axis container <http://matplotlib.sourceforge.net/users/artists.html#axis-container>`_
+ * `Transformations tutorial <http://matplotlib.sourceforge.net/users/transforms_tutorial.html>`_
+
+
+
+
+Adding a legend
+---------------
+
+.. image:: figures/exercice_8.png
+   :align: right
+
+
+Let's add a legend in the upper left corner. This only requires to give each
+plot a label that will be used in the legend box.
+
+
+.. code-block:: python
+
+   ...
+   plot(X, C, color="blue", linewidth=2.5, linestyle="-", label="cosine")
+   plot(X, S, color="red", linewidth=2.5, linestyle="-",  label="sine")
+
+   legend(loc='upper left')
+   ...
+
+**Complete source**: `exercice_8.py <scripts/exercice_8.py>`_
+
+**Documentation reference**:
+
+ * `Legend guide <http://matplotlib.sourceforge.net/users/legend_guide.html>`_
+ * `legend() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.legend>`_
+ * `Legend api <http://matplotlib.sourceforge.net/api/legend_api.html#matplotlib.legend.Legend>`_
+
+
+
+Annotate some points
+--------------------
+
+.. image:: figures/exercice_9.png
+   :align: right
+
+
+Let's annotate some interesting point using the annotate command.
+
+
+.. code-block:: python
+
+   ...
+
+   t = 2*np.pi/3
+   plot([t,t],[0,np.cos(t)], color ='blue', linewidth=2.5, linestyle="--")
+   scatter([t,],[np.cos(t),], 50, color ='blue')
+
+   annotate(r'$sin(\frac{2\pi}{3})=-\frac{\sqrt{3}}{2}$', xy=(t, np.sin(t)),  xycoords='data',
+            xytext=(+10, +30), textcoords='offset points', fontsize=16,
+            arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))
+
+   plot([t,t],[0,np.sin(t)], color ='red', linewidth=2.5, linestyle="--")
+   scatter([t,],[np.sin(t),], 50, color ='red')
+
+   annotate(r'$cos(\frac{2\pi}{3})=-\frac{1}{2}$', xy=(t, np.cos(t)),  xycoords='data',
+            xytext=(-90, -50), textcoords='offset points', fontsize=16,
+            arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))
+   ...
+
+
+**Complete source**: `exercice_9.py <scripts/exercice_9.py>`_
+
+**Documentation reference**
+
+ * `Annotating axis <http://matplotlib.sourceforge.net/users/annotations_guide.html>`_
+ * `annotate() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.annotate>`_
+
+
+
+Devil is in the details
+------------------------
+
+.. image:: figures/exercice_10.png
+   :align: right
+
+Tick labels are now hardly visible because of the blue and red lines. We can
+make them bigger and we can also adjust their properties such that they'll be
+rendered on a semi-transparent white background. This will allow us to see both
+the data and the labels.
+
+.. code-block:: python
+
+   ...
+   for label in ax.get_xticklabels() + ax.get_yticklabels():
+       label.set_fontsize(16)
+       label.set_bbox(dict(facecolor='white', edgecolor='None', alpha=0.65 ))
+   ...
+
+
+**Complete source**: `exercice_10.py <scripts/exercice_10.py>`_
+
+**Documentation reference**
+
+ * `Artists <http://matplotlib.sourceforge.net/api/artist_api.html>`_
+ * `Text.set_bbox() <http://matplotlib.sourceforge.net/api/artist_api.html#matplotlib.text.Text.set_bbox>`_
+
+
+
+
+Figures, Subplots, and Axes
+===========================
+
+So far we have used implicit figure and axes creation.  This is handy for fast
+plots. We can have more control over the display using figure, subplot,
+and axes explicitly.  A figure in matplotlib means the whole window
+in the user interface. Within this figure there can be subplots.  While
+subplot positions the plots in a regular grid, axes allows free
+placement within the figure. Both can be useful depending on your
+intention.  We've already work with figures and subplots without explicitly
+calling them.  When we call plot matplotlib calls gca() to get the
+current axes and gca in turn calls gcf() to get the current figure. If
+there is none it calls figure() to make one, strictly speaking, to make a
+subplot(111).  Let's look at the details.
+
+Figures
+-------
+
+A figure is the windows in the GUI that has "Figure #" as title. Figures
+are numbered starting from 1 as opposed to the normal Python way starting
+from 0. This is clearly MATLAB-style.  There are several parameters that
+determine how the figure looks like:
+
+==============  ======================= ============================================
+Argument        Default                 Description
+==============  ======================= ============================================
+num             1                       number of figure
+figsize         figure.figsize          figure size in in inches (width, height)
+dpi             figure.dpi              resolution in dots per inch
+facecolor       figure.facecolor        color of the drawing background
+edgecolor       figure.edgecolor        color of edge around the drawing background
+frameon         True                    draw figure frame or not
+==============  ======================= ============================================
+
+The defaults can be specified in the resource file and will be used most of the
+time. Only the number of the figure is frequently changed.
+
+When you work with the GUI you can close a figure by clicking on the x in the
+upper right corner. But you can close a figure programmatically by calling
+close. Depending on the argument it closes (1) the current figure (no
+argument), (2) a specific figure (figure number or figure instance as
+argument), or (3) all figures (all as argument).
+
+As with other objects, you can set figure properties also setp or with the
+set_something methods.
+
+
+Subplots
+--------
+
+With subplot you can arrange plots in regular grid. You need to specify the
+number of rows and columns and the number of the plot.
+
+.. image:: figures/subplot-horizontal.png
+.. image:: figures/subplot-vertical.png
+.. image:: figures/subplot-grid.png
+
+**Sources**
+
+ * `subplot-horizontal.py <scripts/subplot-horizontal.py>`_
+ * `subplot-vertical.py <scripts/subplot-vertical.py>`_
+ * `subplot-grid.py <scripts/subplot-grid.py>`_
+
+
+
+Axes
 ----
 
-We've already used some commands to add text to our figure: ``xlabel``
-``ylabel``, and ``title``.
+Axes are very similar to subplots but allow placement of plots at any location
+in the figure.  So if we want to put a smaller plot inside a bigger one we do
+so with axes:
 
-There are two functions to put text at a defined position.
-``text`` adds the text with data coordinates::
+.. image:: figures/axes.png
+.. image:: figures/axes-2.png
 
-    >>> pl.plot(np.arange(10))
-    >>> t1 = pl.text(5, 5, 'Text in the middle')
+**Sources**
 
-``figtext`` uses figure coordinates form 0 to 1::
-
-    >>> t2 = pl.figtext(0.8, 0.8, 'Upper right text')
-
-.. image:: figures/text.png
-    :width: 50%
-    
-``matplotlib`` supports TeX mathematical expression. So ``r'$\pi$'``
-will show up as:
-
-.. math::
-
-     \pi
+ * `axes.py <scripts/axes.py>`_
+ * `axes-2.py <scripts/axes-2.py>`_
 
 
-If you want to get more control over where the text goes, you
-use annotations::
-
-    >>> ax = pl.gca()
-    >>> ax.annotate('Here is something special', xy = (1, 1)) # doctest: +ELLIPSIS
-    <matplotlib.text.Annotation instance at ...>
-
-We will write the text at the position (1, 1) in terms of data.
-There are many optional arguments that help to customize
-the position of the text.  The arguments ``textcoords`` and
-``xycoords`` specifies what ``x`` and ``y`` mean: 
-
-==================== ===================================================
-argument             coordinate system
-==================== ===================================================
-figure points        points from the lower left corner of the figure
-figure pixels        pixels from the lower left corner of the figure
-figure fraction      0,0 is lower left of figure and 1,1 is upper, right
-axes points          points from lower left corner of axes
-axes pixels          pixels from lower left corner of axes
-axes fraction        0,1 is lower left of axes and 1,1 is upper right
-data                 use the axes data coordinate system
-==================== ===================================================
-
-If we do not supply ``xycoords``, the text will be written at ``xy``.
-
-Furthermore, we can use an arrow whose appearance can also be described
-in detail::
-
-    >>> pl.plot(np.arange(10)) # doctest: +ELLIPSIS
-    >>> [<matplotlib.lines.Line2D instance at ...>]
-
-    >>> ax = pl.gca()
-
-    >>> ax.annotate('Here is something special', xy = (2, 1), xytext=(1,5)) # doctest: +ELLIPSIS
-    <matplotlib.text.Annotation instance at ...>
-
-    >>> ax.annotate('Here is something special', xy = (2, 1), xytext=(1,5),
-    ...             arrowprops={'facecolor': 'r'}) # doctest: +ELLIPSIS
-    <matplotlib.text.Annotation instance at ...>
-
-.. topic:: Exercise
-   :class: green
-
-   Annotate a line at two places with text. Use green and red arrows
-   and align it according to ``figure points`` and ``data``.
 
 Ticks
------
+=====
 
 Where and What
-...............
+--------------
 
 Well formatted ticks are an important part of publishing-ready
 figures. ``matplotlib`` provides a totally configurable system
@@ -375,7 +521,7 @@ each other. Per default minor ticks are not shown, i.e. there is only
 an empty list for them because it is as ``NullLocator`` (see below).
 
 Tick Locators
-..............
+-------------
 
 There are several locators for different kind of requirements:
 
@@ -410,7 +556,7 @@ RRuleLocator            locate using a matplotlib.dates.rrule
 
 
 Tick Formatters
-................
+---------------
 
 Similarly to locators, there are formatters:
 
@@ -443,628 +589,505 @@ to 1. We also format the numbers as decimals using the
     >>> ax.xaxis.set_major_formatter(major_formatter)
     >>> pl.draw()
 
-After we redraw the figure our x axis should look like this:
 
-.. raw:: pdf
-
-     Spacer 0 10
-
-.. image:: figures/ticks.png
-    :width: 50%
-
-
-.. topic:: Exercises
-   :class: green
-
-   1) Plot a graph with dates for one year with daily
-      values at the x axis using the built-in module ``datetime``.
-
-   2) Format the dates in such a way that only the first day
-      of the month is shown.
-
-   3) Display the dates with and without the year. Show the month
-      as number and as first three letters of the month name.
-
-
-Figures, Subplots, and Axes
----------------------------
-
-The Hierarchy
-.............
-
-So far we have used implicit figure and axes creation.
-This is handy for fast plots. We can have more control over
-the display using ``figure``, ``subplot``, and ``axes`` explicitly.
-A ``figure`` in ``matplotlib`` means the whole window in the
-user interface. Within this ``figure`` there can be subplots.
-While ``subplot`` positions the plots in a regular grid, ``axes``
-allows free placement within the ``figure``. Both can
-be useful depending on your intention.
-We've already work with figures and subplots without explicitly
-calling them.  When we call ``plot`` ``matplotlib`` calls ``gca()`` to
-get the current axes and ``gca`` in turn calls ``gcf()`` to
-get the current figure. If there is none it calls ``figure()``
-to make one, strictly speaking, to make a ``subplot(111)``.
-Let's look at the details.
-
-Figures
-.........
-
-A ``figure`` is  the windows in the GUI that has "Figure #" as
-title. Figures are numbered starting from 1 as opposed to the
-normal Python way starting from 0. This is clearly MATLAB-style.
-There are several parameters that determine how the figure
-looks like:
-
-==============    ======================= ============================================
-Argument          Default                 Description
-==============    ======================= ============================================
-``num``           ``1``                    number of figure
-``figsize``       ``figure.figsize``       figure size in in inches (width, height)
-``dpi``           ``figure.dpi``           resolution in dots per inch
-``facecolor``     ``figure.facecolor``     color of the drawing background
-``edgecolor``     ``figure.edgecolor``     color of edge around the drawing background
-``frameon``       ``True``                 draw figure frame or not
-==============    ======================= ============================================
-
-The defaults can be specified in the resource file and
-will be used most of the time. Only the number of the figure
-is frequently changed.
-
-When you work with the GUI you can close a figure by clicking on the
-x in the upper right corner. But you can close a figure
-programmatically by calling ``close``. Depending on the argument it closes
-(1) the current figure (no argument), (2) a specific figure (figure number or figure
-instance as argument), or (3) all figures (``all`` as argument).
-
-As with other objects, you can set figure properties also ``setp``
-or with the ``set_something`` methods.
-
-Subplots
-........
-
-With ``subplot`` you can arrange plots in regular grid. You need to
-specify the number of rows and columns and the number of the plot.
-
-A plot with two rows and one column is created with
-``subplot(211)`` and ``subplot(212)``. The result looks like this:
-
-.. raw:: pdf
-
-     Spacer 0 10
-
-.. image:: figures/subplots_horizontal.png
-    :width: 25%
-
-If you want two plots side by side, you create one row and two columns
-with ``subplot(121)`` and ``subplot(112)``. The result looks like this:
-
-.. raw:: pdf
-
-     Spacer 0 10
-
-.. image:: figures/subplots_vertical.png
-    :width: 25%
-
-You can arrange as many figures as you want. A two-by-two arrangement can
-be created with ``subplot(221)``,  ``subplot(222)``, ``subplot(223)``, and
-``subplot(224)``. The result looks like this:
-
-.. raw:: pdf
-
-     Spacer 0 10
-
-.. image:: figures/subplots_four.png
-    :width: 25%
-
-Frequently, you don't want all subplots to have ticks or labels.
-You can set the ``xticklabels`` or the ``yticklabels`` to an empty
-list (``[]``). Every subplot defines the methods ``'is_first_row``,
-``is_first_col``, ``is_last_row``, ``is_last_col``. These can help to
-set ticks and labels only for the outer pots.
-
-
-Axes
-......
-
-Axes are very similar to subplots but allow placement of plots
-at any location in the figure.  So if we want to put a smaller
-plot inside a bigger one we do so with ``axes``::
-
-    >>> pl.plot(x)  # doctest: +ELLIPSIS
-    [<matplotlib.lines.Line2D instance at ...>]
-
-    >>> a = pl.axes([0.2, 0.5, 0.25, 0.25])
-
-    >>> pl.plot(x)  # doctest: +ELLIPSIS
-    [<matplotlib.lines.Line2D instance at ...>]
-
-The result looks like this:
-
-.. image:: figures/axes.png
-    :width: 25%
-
-.. topic:: Exercises
-    :class: green
-
-    1) Draw two figures, one 5 by 5, one 10 by 10 inches.
-
-    2) Add four subplots to one figure. Add labels and ticks only to
-       the outermost axes.
-
-    3) Place a small plot in one bigger plot.
 
 Other Types of Plots
---------------------
-
-Many More
-.........
-
-So far we have used only line plots. ``matplotlib`` offers many more types
-of plots. We will have a brief look at some of them. All functions have many
-optional arguments that are not shown here.
+====================
 
 
-Bar Charts
-...........
+.. image:: figures/plot.png
+   :target: `Regular Plots`_
 
-The function ``bar`` creates a new bar chart::
-
-    >>> pl.bar([1, 2, 3], [4, 3, 7])
-
-Now we have three bars starting at 1, 2, and 3 with height of
-4, 3, 7 respectively:
-
-.. raw:: pdf
-
-     Spacer 0 10
+.. image:: figures/scatter.png
+   :target: `Scatter Plots`_
 
 .. image:: figures/bar.png
-            :width: 25%
+   :target: `Bar Plots`_
 
-The default column width is 0.8. It can be changed with
-common methods by setting ``width``. As it can be ``color`` and
-``bottom``, we can also set an error bar with ``yerr`` or ``xerr``.
+.. image:: figures/contour.png
+   :target: `Contour Plots`_
 
-Horizontal Bar Charts
-......................
+.. image:: figures/imshow.png
+   :target: `Imshow`_
 
-The function ``barh`` creates an vertical bar chart.
-Using the same data::
+.. image:: figures/quiver.png
+   :target: `Quiver Plots`_
 
-   >>> pl.barh([1, 2, 3], [4, 3, 7])
+.. image:: figures/pie.png
+   :target: `Pie Charts`_
 
-We get:
+.. image:: figures/grid.png
+   :target: `Grids`_
 
-.. raw:: pdf
+.. image:: figures/multiplot.png
+   :target: `Multi Plots`_
 
-     Spacer 0 10
+.. image:: figures/polar.png
+   :target: `Polar Axis`_
 
-.. image:: figures/barh.png
-            :width: 25%
+.. image:: figures/plot3d.png
+   :target: `3D Plots`_
 
-Broken Horizontal Bar Charts
-++++++++++++++++++++++++++++
+.. image:: figures/text.png
+   :target: `Text`_
 
-We can also have discontinuous vertical bars with ``broken_barh``.
-We specify start and width of the range in y-direction and all
-start-width pairs in x-direction::
 
-    >>> yrange = (2, 1)
-    >>> xranges = ([0, 0.5], [1, 1], [4, 1])
-    >>> pl.broken_barh(xranges, yrange)
+Regular Plots
+-------------
 
-We changes the extension of the y-axis to make plot look nicer::
+.. image:: figures/plot.png
+   :align: right
 
-    >>> ax = pl.gca()
-    >>> ax.set_ylim(0, 5)
-    (0, 5)
-    >>> pl.draw()
-    
+.. code-block:: python
 
-and get this: 
+   from pylab import *
 
-.. raw:: pdf
+   n = 256
+   X = np.linspace(0,2,n)
+   Y = np.sin(2*np.pi*X)
+   plot(X,Y), show()
 
-     Spacer 0 10
+**Exercice**
 
-.. image:: figures/broken_barh.png
-            :width: 25%
+  Starting from the code above, try to reproduce the graphic on the right taking
+  care of axis limits, line width and color.
 
-Box and Whisker Plots
-......................
+**Hints**
 
-We can draw box and whisker plots::
+  You can set ticks with an empty list.
 
-    >>> pl.boxplot((arange(2, 10), arange(1, 5)))
+**Solution**
 
-We want to have the whiskers well within the plot and therefore
-increase the y axis::
+  Click `here <scripts/plot_ex.py>`_ for the solution
 
-    >>> ax = pl.gca()
-    >>> ax.set_ylim(0, 12)
-    >>> draw()
+Scatter Plots
+-------------
 
-Our plot looks like this:
 
-.. image:: figures/boxplot.png
-            :width: 25%
+.. image:: figures/scatter.png
+   :align: right
 
-The range of the whiskers can be determined with the
-argument ``whis``, which defaults to 1.5. The range of
-the whiskers is between the most extreme data point
-within ``whis*(75%-25%)`` of the data.
+.. code-block:: python
+
+   from pylab import *
+
+   n = 1024
+   X = np.random.normal(0,1,n)
+   Y = np.random.normal(0,1,n)
+   scatter(X,Y), show()
+
+**Exercice**
+
+  Starting from the code above, try to reproduce the graphic on the right taking
+  care of axis limits, markers size and color and transparency.
+
+**Hints**
+
+  Color is given by angle.
+
+**Solution**
+
+  Click `here <scripts/scatter_ex.py>`_ for the solution
+
+
+
+Bar Plots
+---------
+
+.. image:: figures/bar.png
+   :align: right
+
+.. code-block:: python
+
+   from pylab import *
+
+   X = np.arange(n)
+   Y1 = (1-X/float(n)) * np.random.uniform(0.5,1.0,n)
+   Y2 = (1-X/float(n)) * np.random.uniform(0.5,1.0,n)
+   bar(X, Y1)
+
+**Exercice**
+
+  Starting from the code above, try to reproduce the graphic on the right taking
+  care of axis limits, bars size and color.
+
+**Hints**
+
+  You'll need two bar plots.
+
+**Solution**
+
+  Click `here <scripts/bar_ex.py>`_ for the solution
 
 
 Contour Plots
-..............
-
-We can also do contour plots. We define arrays for the
-x and y coordinates::
-
-    >>> x = y = np.arange(10)
-
-and also a 2D array for z::
-
-    >>> z = np.ones((10, 10))
-    >>> z[5, 5] = 7
-    >>> z[2, 1] = 3
-    >>> z[8, 7] = 4
-    >>> z
-    array([[ 1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.],
-           [ 1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.],
-           [ 1.,  3.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.],
-           [ 1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.],
-           [ 1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.],
-           [ 1.,  1.,  1.,  1.,  1.,  7.,  1.,  1.,  1.,  1.],
-           [ 1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.],
-           [ 1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.],
-           [ 1.,  1.,  1.,  1.,  1.,  1.,  1.,  4.,  1.,  1.],
-           [ 1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.]])
-        
-Now we can make a simple contour plot::
-
-    >>> pl.contour(x, x, z)
-
-Our plot looks like this:
+-------------
 
 .. image:: figures/contour.png
-            :width: 25%
+   :align: right
 
-We can also fill the area. We just use numbers form 0 to 9 for
-the values ``v``::
+.. code-block:: python
 
-    >>> v = x
-    >>> pl.contourf(x, x, z, v)
+   from pylab import *
 
-Now our plot area is filled:
+   def f(x,y): return (1-x/2+x**5+y**3)*np.exp(-x**2-y**2)
 
-.. image:: figures/contourf.png
-            :width: 25%
+   n = 256
+   x = np.linspace(-3,3,n)
+   y = np.linspace(-3,3,n)
+   X,Y = np.meshgrid(x,y)
+   contour(X,Y,f(X,Y))
+   show()
 
-Histograms
-...........
+**Exercice**
 
-We can make histograms. Let's get some normally distributed
-random numbers from ``numpy``::
+  Starting from the code above, try to reproduce the graphic on the right taking
+  care of fills and lines, transparency, number of contours and colors.
 
-    >>> r_numbers = np.random.normal(size= 1000)
+**Hints**
 
-Now we make a simple histogram::
-    
-    >>> pl.hist(r_numbers)
-
-With 100 numbers our figure looks pretty good:
-
-.. raw:: pdf
-
-     Spacer 0 10
-
-.. image:: figures/hist.png
-            :width: 25%
-
-Loglog Plots
-.............
-
-Plots with logarithmic scales are easy::
-
-    >>> pl.loglog(np.arange(1000))
-
-We set the major and minor grid::
-    
-    >>> pl.grid(True)
-    >>> pl.grid(True, which='minor')
-    
-Now we have loglog plot:
-
-.. image:: figures/loglog.png
-            :width: 25%
+  You'll need two an additional contourf plot.
 
 
-If we want only one axis with a logarithmic scale we can
-use ``semilogx`` or ``semilogy``.
+**Solution**
+
+  Click `here <scripts/contour_ex.py>`_ for the solution
+
+
+
+Imshow
+------
+
+.. image:: figures/imshow.png
+   :align: right
+
+.. code-block:: python
+
+   from pylab import *
+
+   n = 32
+   Z = np.random.uniform(0,1,(n,n))
+   imshow(Z), show()
+
+**Exercice**
+
+  Starting from the code above, try to reproduce the graphic on the right taking
+  care of colormaps, axis aspects and image interpolation.
+
+**Hints**
+
+  You need to take care of the 'origin' of the image in the imshow command.
+
+**Solution**
+
+  Click `here <scripts/imshow_ex.py>`_ for the solution
+
 
 Pie Charts
-...........
-
-Pie charts can also be created with a few lines::
-
-    >>> data = [500, 700, 300]
-    >>> labels = ['cats', 'dogs', 'other']
-    >>> pl.pie(data, labels=labels)
-    
-The result looks as expected:
+----------
 
 .. image:: figures/pie.png
-            :width: 25%
+   :align: right
 
-Polar Plots
-............
+.. code-block:: python
 
-Polar plots are also possible. Let's define our ``r`` from
-0 to 360 and our ``theta`` from 0 to 360 degrees. We need to
-convert them to radians::
+   from pylab import *
 
-    >>> r = np.arange(360)
-    >>> theta = r / (180/pi)
+   n = 20
+   Z = np.random.uniform(0,1,n)
+   pie(Z), show()
 
-Now plot in polar coordinates::
-    
-    >>> pl.polar(theta, r)
+**Exercice**
 
-We get a nice spiral:
+  Starting from the code above, try to reproduce the graphic on the right taking
+  care of colors and slices size.
 
-.. image:: figures/polar.png
-            :width: 25%
+**Hints**
 
-Arrow Plots
-............
-
-Plotting arrows in 2D plane can be achieved with ``quiver``.
-We define the x and y coordinates of the arrow shafts::
-
-    >>> x = y = np.arange(10)
-
-The x and y components of the arrows are specified as 2D arrays::
-
-    >>> u = np.ones((10, 10))
-    >>> v = np.ones((10, 10))
-    >>> u[4, 4] = 3
-    >>> v[1, 1] = -1
-
-Now we can plot the arrows::
-
-    >>> pl.quiver(x, y, u, v)
+  You need to modify Z.
 
 
-All arrows point to the upper right, except two. The one
-at the location (4, 4) has 3 units in x-direction and the
-other at location (1, 1) has -1 unit in y direction:
+**Solution**
 
-.. raw:: pdf
+  Click `here <scripts/pie_ex.py>`_ for the solution
 
-     Spacer 0 10
+
+Quiver Plots
+------------
 
 .. image:: figures/quiver.png
-            :width: 25%
-         
-Scatter Plots
-...............
-
-Scatter plots print x vs. y diagrams. We define ``x`` and ``y``
-and make some point in ``y`` random::
-
-    >>> x = np.arange(10)
-    >>> y = np.arange(10)
-    >>> y[1] = 7
-    >>> y[4] = 2
-    >>> y[8] = 3
-
-Now make a scatter plot::
-    
-    >>> pl.scatter(x, y)
-
-The three different values for ``y`` break out of the line:
-
-.. raw:: pdf
-
-     Spacer 0 10
-
-.. image:: figures/scatter.png
-            :width: 25%
-         
-
-Sparsity Pattern Plots
-.......................
-
-Working with sparse matrices, it is often of interest as
-how the matrix looks like in terms of sparsity.
-We take an identity matrix as an example::
-
-    >>> i = np.identity(10)
-    >>> i
-    array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-           [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-           [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-           [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-           [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-           [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-           [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-           [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-           [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-           [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]])
-
-Now we look at it more visually::
-
-    >>> pl.spy(i)
-
-.. image:: figures/spy.png
-            :width: 25%
-
-Stem Plots
-...........
-
-Stem plots vertical lines at the given x location up to
-the specified y location. Let's reuse ``x`` and ``y``
-from our scatter (see above)::
-
-    >>> pl.stem(x, y)
-
-.. image:: figures/stem.png
-            :width: 25%
-
-
-Date Plots
-...........
-
-There is a function for creating date plots.
-Let's define 10 dates starting at January 1st 2000
-at 15.day intervals::
-
-    >>> import datetime
-    >>> d1 = datetime.datetime(2000, 1, 1)
-    >>> delta = datetime.timedelta(15)
-    >>> dates = [d1 + x * delta for x in range(1
-    >>> dates
-    [datetime.datetime(2000, 1, 1, 0, 0),
-     datetime.datetime(2000, 1, 16, 0, 0),
-     datetime.datetime(2000, 1, 31, 0, 0),
-     datetime.datetime(2000, 2, 15, 0, 0),
-     datetime.datetime(2000, 3, 1, 0, 0),
-     datetime.datetime(2000, 3, 16, 0, 0),
-     datetime.datetime(2000, 3, 31, 0, 0),
-     datetime.datetime(2000, 4, 15, 0, 0),
-     datetime.datetime(2000, 4, 30, 0, 0),
-     datetime.datetime(2000, 5, 15, 0, 0)]
-
-We reuse our data from the scatter plot (see above)::
-
-    >>> y
-    array([0, 7, 2, 3, 2, 5, 6, 7, 3, 9])
-     
-Now we can plot the dates at the x axis::
-
-    >>> pl.plot_date(dates, y)
-
-.. image:: figures/date.png
-            :width: 25%
-
-
-The Class Library
------------------
-
-So far we have used the ``pylab`` interface only. As the name
-suggests it is just wrapper around the class library. All ``pylab``
-commands can be invoked via the class library using an object-oriented
-approach.
-
-
-The Figure Class
-.................
-
-The class ``Figure`` lives in the module ``matplotlib.figure``.
-Its constructor takes these arguments:
+   :align: right
 
 .. code-block:: python
 
-    figsize=None, dpi=None, facecolor=None, edgecolor=None,
-    linewidth=1.0, frameon=True, subplotpars=None
+   from pylab import *
 
-Comparing this with the arguments of ``figure`` in ``pylab`` shows
-significant overlap:
+   n = 8
+   X,Y = np.mgrid[0:n,0:n]
+   quiver(X,Y), show()
+
+
+**Exercice**
+
+  Starting from the code above, try to reproduce the graphic on the right taking
+  care of colors and orientations.
+
+**Hints**
+
+  You need to draw arrows twice.
+
+
+**Solution**
+
+  Click `here <scripts/quiver_ex.py>`_ for the solution
+
+
+
+Grids
+-----
+
+.. image:: figures/grid.png
+   :align: right
 
 .. code-block:: python
 
-    num=None, figsize=None, dpi=None, facecolor=None
-    edgecolor=None, frameon=True
+   from pylab import *
 
-``Figure`` provides lots of methods, many of them have equivalents in
-``pylab``. The methods ``add_axes`` and ``add_subplot`` are called if new
-axes or subplot are created with ``axes`` or ``subplot`` in ``pylab``.
-Also the method ``gca`` maps directly to ``pylab`` as do ``legend``,
-``text`` and many others.
+   axes = gca()
+   axes.set_xlim(0,4)
+   axes.set_ylim(0,3)
+   axes.set_xticklabels([])
+   axes.set_yticklabels([])
 
-There are also several ``set_something`` method such as ``set_facecolor`` or
-``set_edgecolor`` that will be called through ``pylab`` to set properties of
-the figure. ``Figure`` also implements ``get_something`` methods
-such as ``get_axes`` or ``get_facecolor`` to get properties of the figure.
+   show()
 
 
+**Exercice**
 
-The Classes Axes and Subplot
-.............................
+  Starting from the code above, try to reproduce the graphic on the right taking
+  care of line styles for the grid
 
-In the class  ``Axes`` we find most of the figure elements such as
-``Axis``, ``Tick``, ``Line2D``, or ``Text``. It also sets the coordinate
-system. The class ``Subplot`` inherits from ``Axes`` and adds some
-more functionality to arrange the plots in a grid.
+**Solution**
 
-Analogous to ``Figure``, it has methods to get and set properties
-and methods already encountered as functions in ``pylab`` such as
-``annotate``. In addition, ``Axes`` has methods for all types of plots
-shown in the previous section.
-
-Other Classes
-.............
-
-Other classes such as ``text``, ``Legend`` or ``Ticker`` are setup very
-similarly. They can be understood mostly by comparing to the ``pylab``
-interface.
+  Click `here <scripts/grid_ex.py>`_ for the solution
 
 
-Example
-........
+Multi Plots
+-----------
 
-Let's look at an example for using the object-oriented API:
-
-.. literalinclude:: matplotlib_examples/oo.py
-
-.. .. code-block:: python
-    :include: matplotlib_examples/oo.py
-
-Since we are not in the interactive pylab-mode, we
-need to import the class ``Figure`` explicitly (``#1``).
-
-We set the size of our figure to be 8 by 5 inches (``#2``).
-Now we initialize a new figure (``#3``) and add a subplot
-to the figure (``#4``). The ``111`` says one plot at
-position 1, 1 just as in MATLAB. We create a new plot with
-the numbers from 0 to 9 and at the same time get a reference
-to our line (``#5``). We can add several things to our plot.
-So we set a title and labels for the x and y axis (``#6``).
-
-We also want to see the grid (``#7``) and would like to have
-little filled circles as markers (``#8``).
-
-There are many different backends for rendering our figure.
-We use the Anti-Grain Geometry toolkit (http://www.antigrain.com)
-to render our figure. First, we import the backend (``#9``), then
-we create a new canvas that renders our figure (``#10``).
-We save our figure in a png-file with a resolution of 80 dpi (``#11``).
-
-We can use several GUI toolkits directly. So we import Tkinter (``#12``)
-as well as the corresponding backend (``#13``).
-Now we have to do some basic GUI programming work. We make a root
-object for our GUI (``#14``) and feed it together with our figure to
-the backend to get our canvas (``15``). We call the show method (``#16``),
-pack our widget (``#17``), and call the Tkinter mainloop to start
-the application (``#18``). You should see GUI window with the figure
-on your screen. After closing the screen, the next part, the script, will
-be executed.
-
-We would like to create a screen display just as we would use
-``pylab``. Therefore we import a helper (``#19``) and ``pylab``
-itself (``#20``). We create a normal figure with ``pylab` (``21``)
-and get the corresponding figure manager (``#22``). Now let's set
-our figure we created above to be the current figure (``#23``)
-and let ``pylab`` show the result (``#24``).
-The lower part of the figure might be cover by the toolbar.
-If so, please adjust the ``figsize`` for ``pylab`` accordingly.
-
-.. topic:: Exercises
-   :class: green
-
-   1) Use the object-oriented API of matplotlib to create a png-file
-      with a plot of two lines, one linear and square with a legend in it.
+.. image:: figures/multiplot.png
+   :align: right
 
 
+.. code-block:: python
+
+   from pylab import *
+
+   subplot(2,2,1)
+   subplot(2,2,3)
+   subplot(2,2,4)
+
+   show()
+
+
+**Exercice**
+
+  Starting from the code above, try to reproduce the graphic on the right.
+
+**Hints**
+
+  You can use several subplots with different partition.
+
+**Solution**
+
+  Click `here <scripts/multiplot_ex.py>`_ for the solution
+
+
+
+Polar Axis
+----------
+
+.. image:: figures/polar.png
+   :align: right
+
+
+3D Plots
+--------
+
+.. image:: figures/plot3d.png
+   :align: right
+
+Text
+--------
+
+.. image:: figures/text.png
+   :align: right
+
+
+
+Quick references
+================
+
+Line properties
+----------------
+
+=============== ======================================== =======================================
+Property        Value
+=============== ======================================== =======================================
+alpha           alpha transparency on 0-1 scale          .. image:: figures/alpha.png
+                                                            :target: figures/alpha-big.png
+antialiased     True or False - use antialised rendering .. image:: figures/antialiased.png
+                                                            :target: figures/antialiased-big.png
+color           matplotlib color arg                     .. image:: figures/color.png
+                                                            :target: figures/color-big.png
+linestyle       see below
+linewidth       float, the line width in points          .. image:: figures/linewidth.png
+                                                            :target: figures/linewidth-big.png
+marker          see below
+markeredgewidth line width around the marker symbol      .. image:: figures/mew.png
+                                                            :target: figures/mew-big.png
+markeredgecolor edge color if a marker is used           .. image:: figures/mec.png
+                                                            :target: figures/mec-big.png
+markerfacecolor face color if a marker is used           .. image:: figures/mfc.png
+                                                            :target: figures/mfc-big.png
+markersize      size of the marker in points             .. image:: figures/ms.png
+                                                            :target: figures/ms-big.png
+=============== ======================================== =======================================
+
+
+Line styles
+-----------
+
+=========== ====================================== ========================================
+Symbol      Description                            Appearance
+=========== ====================================== ========================================
+ ``-``      solid line                             .. image:: figures/linestyle--.png
+                                                      :target: figures/linestyle---big.png
+ ``--``     dashed line                            .. image:: figures/linestyle---.png
+                                                      :target: figures/linestyle----big.png
+ ``-.``     dash-dot line                          .. image:: figures/linestyle--..png
+                                                      :target: figures/linestyle--.-big.png
+ ``:``      dotted line                            .. image:: figures/linestyle-:.png
+                                                      :target: figures/linestyle-:-big.png
+ ``.``      points                                 .. image:: figures/linestyle-..png
+                                                     :target: figures/linestyle-.-big.png
+ ``,``      pixels                                 .. image:: figures/linestyle-,.png
+                                                     :target: figures/linestyle-,-big.png
+ ``o``      circle symbols                         .. image:: figures/linestyle-o.png
+                                                     :target: figures/linestyle-o-big.png
+ ``^``      triangle up symbols                    .. image:: figures/linestyle-^.png
+                                                     :target: figures/linestyle-^-big.png
+ ``v``      triangle down symbols                  .. image:: figures/linestyle-v.png
+                                                     :target: figures/linestyle-v-big.png
+ ``<``      triangle left symbols                  .. image:: figures/linestyle-<.png
+                                                     :target: figures/linestyle-<-big.png
+ ``>``      triangle right symbols                 .. image:: figures/linestyle->.png
+                                                     :target: figures/linestyle->-big.png
+ ``s``      square symbols                         .. image:: figures/linestyle-s.png
+                                                     :target: figures/linestyle-s-big.png
+ ``+``      plus symbols                           .. image:: figures/linestyle-+.png
+                                                     :target: figures/linestyle-+-big.png
+ ``x``      cross symbols                          .. image:: figures/linestyle-x.png
+                                                     :target: figures/linestyle-x-big.png
+ ``D``      diamond symbols                        .. image:: figures/linestyle-D.png
+                                                     :target: figures/linestyle-D-big.png
+ ``d``      thin diamond symbols                   .. image:: figures/linestyle-d.png
+                                                     :target: figures/linestyle-d-big.png
+ ``1``      tripod down symbols                    .. image:: figures/linestyle-1.png
+                                                     :target: figures/linestyle-1-big.png
+ ``2``      tripod up symbols                      .. image:: figures/linestyle-2.png
+                                                     :target: figures/linestyle-2-big.png
+ ``3``      tripod left symbols                    .. image:: figures/linestyle-3.png
+                                                     :target: figures/linestyle-3-big.png
+ ``4``      tripod right symbols                   .. image:: figures/linestyle-4.png
+                                                     :target: figures/linestyle-4-big.png
+ ``h``      hexagon symbols                        .. image:: figures/linestyle-h.png
+                                                     :target: figures/linestyle-h-big.png
+ ``H``      rotated hexagon symbols                .. image:: figures/linestyle-H.png
+                                                     :target: figures/linestyle-H-big.png
+ ``p``      pentagon symbols                       .. image:: figures/linestyle-p.png
+                                                     :target: figures/linestyle-p-big.png
+ ``|``      vertical line symbols                  .. image:: figures/linestyle-|.png
+                                                     :target: figures/linestyle-|-big.png
+ ``_``      horizontal line symbols                .. image:: figures/linestyle-_.png
+                                                     :target: figures/linestyle-_-big.png
+=========== ====================================== ========================================
+
+
+Colormaps
+---------
+
+============= ================================================ ============= ================================================ 
+Name          Appearance                                       Name          Appearance                                       
+============= ================================================ ============= ================================================ 
+Accent        .. image:: figures/cmap-Accent.png               Blues         .. image:: figures/cmap-Blues.png               
+                 :target: figures/cmap-Accent-big.png                           :target: figures/cmap-Blues-big.png          
+BrBG          .. image:: figures/cmap-BrBG.png                 BuGn          .. image:: figures/cmap-BuGn.png                
+                 :target: figures/cmap-BrBG-big.png                             :target: figures/cmap-BuGn-big.png           
+BuPu          .. image:: figures/cmap-BuPu.png                 CMRmap        .. image:: figures/cmap-CMRmap.png              
+                 :target: figures/cmap-BuPu-big.png                             :target: figures/cmap-CMRmap-big.png         
+Dark2         .. image:: figures/cmap-Dark2.png                GnBu          .. image:: figures/cmap-GnBu.png                
+                 :target: figures/cmap-Dark2-big.png                            :target: figures/cmap-GnBu-big.png           
+Greens        .. image:: figures/cmap-Greens.png               Greys         .. image:: figures/cmap-Greys.png               
+                 :target: figures/cmap-Greens-big.png                           :target: figures/cmap-Greys-big.png          
+OrRd          .. image:: figures/cmap-OrRd.png                 Oranges       .. image:: figures/cmap-Oranges.png             
+                 :target: figures/cmap-OrRd-big.png                             :target: figures/cmap-Oranges-big.png        
+PRGn          .. image:: figures/cmap-PRGn.png                 Paired        .. image:: figures/cmap-Paired.png              
+                 :target: figures/cmap-PRGn-big.png                             :target: figures/cmap-Paired-big.png         
+Pastel1       .. image:: figures/cmap-Pastel1.png              Pastel2       .. image:: figures/cmap-Pastel2.png             
+                 :target: figures/cmap-Pastel1-big.png                          :target: figures/cmap-Pastel2-big.png        
+PiYG          .. image:: figures/cmap-PiYG.png                 PuBu          .. image:: figures/cmap-PuBu.png                
+                 :target: figures/cmap-PiYG-big.png                             :target: figures/cmap-PuBu-big.png           
+PuBuGn        .. image:: figures/cmap-PuBuGn.png               PuOr          .. image:: figures/cmap-PuOr.png                
+                 :target: figures/cmap-PuBuGn-big.png                           :target: figures/cmap-PuOr-big.png           
+PuRd          .. image:: figures/cmap-PuRd.png                 Purples       .. image:: figures/cmap-Purples.png             
+                 :target: figures/cmap-PuRd-big.png                             :target: figures/cmap-Purples-big.png        
+RdBu          .. image:: figures/cmap-RdBu.png                 RdGy          .. image:: figures/cmap-RdGy.png                
+                 :target: figures/cmap-RdBu-big.png                             :target: figures/cmap-RdGy-big.png           
+RdPu          .. image:: figures/cmap-RdPu.png                 RdYlBu        .. image:: figures/cmap-RdYlBu.png              
+                 :target: figures/cmap-RdPu-big.png                             :target: figures/cmap-RdYlBu-big.png         
+RdYlGn        .. image:: figures/cmap-RdYlGn.png               Reds          .. image:: figures/cmap-Reds.png                
+                 :target: figures/cmap-RdYlGn-big.png                           :target: figures/cmap-Reds-big.png           
+Set1          .. image:: figures/cmap-Set1.png                 Set2          .. image:: figures/cmap-Set2.png                
+                 :target: figures/cmap-Set1-big.png                             :target: figures/cmap-Set2-big.png           
+Set3          .. image:: figures/cmap-Set3.png                 Spectral      .. image:: figures/cmap-Spectral.png            
+                 :target: figures/cmap-Set3-big.png                             :target: figures/cmap-Spectral-big.png       
+YlGn          .. image:: figures/cmap-YlGn.png                 YlGnBu        .. image:: figures/cmap-YlGnBu.png              
+                 :target: figures/cmap-YlGn-big.png                             :target: figures/cmap-YlGnBu-big.png         
+YlOrBr        .. image:: figures/cmap-YlOrBr.png               YlOrRd        .. image:: figures/cmap-YlOrRd.png              
+                 :target: figures/cmap-YlOrBr-big.png                           :target: figures/cmap-YlOrRd-big.png         
+afmhot        .. image:: figures/cmap-afmhot.png               autumn        .. image:: figures/cmap-autumn.png              
+                 :target: figures/cmap-afmhot-big.png                           :target: figures/cmap-autumn-big.png         
+binary        .. image:: figures/cmap-binary.png               bone          .. image:: figures/cmap-bone.png                
+                 :target: figures/cmap-binary-big.png                           :target: figures/cmap-bone-big.png           
+brg           .. image:: figures/cmap-brg.png                  bwr           .. image:: figures/cmap-bwr.png                 
+                 :target: figures/cmap-brg-big.png                              :target: figures/cmap-bwr-big.png            
+cool          .. image:: figures/cmap-cool.png                 coolwarm      .. image:: figures/cmap-coolwarm.png            
+                 :target: figures/cmap-cool-big.png                             :target: figures/cmap-coolwarm-big.png       
+copper        .. image:: figures/cmap-copper.png               cubehelix     .. image:: figures/cmap-cubehelix.png           
+                 :target: figures/cmap-copper-big.png                           :target: figures/cmap-cubehelix-big.png      
+flag          .. image:: figures/cmap-flag.png                 gist_earth    .. image:: figures/cmap-gist_earth.png          
+                 :target: figures/cmap-flag-big.png                             :target: figures/cmap-gist_earth-big.png     
+gist_gray     .. image:: figures/cmap-gist_gray.png            gist_heat     .. image:: figures/cmap-gist_heat.png           
+                 :target: figures/cmap-gist_gray-big.png                        :target: figures/cmap-gist_heat-big.png      
+gist_ncar     .. image:: figures/cmap-gist_ncar.png            gist_rainbow  .. image:: figures/cmap-gist_rainbow.png        
+                 :target: figures/cmap-gist_ncar-big.png                        :target: figures/cmap-gist_rainbow-big.png   
+gist_stern    .. image:: figures/cmap-gist_stern.png           gist_yarg     .. image:: figures/cmap-gist_yarg.png           
+                 :target: figures/cmap-gist_stern-big.png                       :target: figures/cmap-gist_yarg-big.png      
+gnuplot       .. image:: figures/cmap-gnuplot.png              gnuplot2      .. image:: figures/cmap-gnuplot2.png            
+                 :target: figures/cmap-gnuplot-big.png                          :target: figures/cmap-gnuplot2-big.png       
+gray          .. image:: figures/cmap-gray.png                 hot           .. image:: figures/cmap-hot.png                 
+                 :target: figures/cmap-gray-big.png                             :target: figures/cmap-hot-big.png            
+hsv           .. image:: figures/cmap-hsv.png                  jet           .. image:: figures/cmap-jet.png                 
+                 :target: figures/cmap-hsv-big.png                              :target: figures/cmap-jet-big.png            
+ocean         .. image:: figures/cmap-ocean.png                pink          .. image:: figures/cmap-pink.png                
+                 :target: figures/cmap-ocean-big.png                            :target: figures/cmap-pink-big.png           
+prism         .. image:: figures/cmap-prism.png                rainbow       .. image:: figures/cmap-rainbow.png             
+                 :target: figures/cmap-prism-big.png                            :target: figures/cmap-rainbow-big.png        
+seismic       .. image:: figures/cmap-seismic.png              spectral      .. image:: figures/cmap-spectral.png            
+                 :target: figures/cmap-seismic-big.png                          :target: figures/cmap-spectral-big.png       
+spring        .. image:: figures/cmap-spring.png               summer        .. image:: figures/cmap-summer.png              
+                 :target: figures/cmap-spring-big.png                           :target: figures/cmap-summer-big.png         
+terrain       .. image:: figures/cmap-terrain.png              winter        .. image:: figures/cmap-winter.png              
+                 :target: figures/cmap-terrain-big.png                          :target: figures/cmap-winter-big.png         
+============= ================================================ ============= ================================================ 
