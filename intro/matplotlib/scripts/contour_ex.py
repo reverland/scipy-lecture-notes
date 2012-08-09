@@ -12,4 +12,5 @@ C = contour(X, Y, f(X,Y), 8, colors='black', linewidth=.5)
 clabel(C, inline=1, fontsize=10)
 
 xticks([]), yticks([])
+# savefig('../figures/contour_ex.png',dpi=64)
 show()

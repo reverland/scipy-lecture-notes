@@ -6,4 +6,6 @@ Z[-1] *= 2
 pie(Z, explode=Z*.05, colors = ['%f' % (i/float(n)) for i in range(n)])
 gca().set_aspect('equal')
 xticks([]), plt.yticks([])
+
+#savefig('../figures/pie_ex.png',dpi=64)
 show()

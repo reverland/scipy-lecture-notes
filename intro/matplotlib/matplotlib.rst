@@ -15,20 +15,18 @@ Matplotlib tutorial
 Introduction
 ============
 
-matplotlib is probably the single most used Python package for
-2D-graphics. It provides both a very quick way to visualize data from Python
-and publication-quality figures in many formats.  We are going to explore
-matplotlib in interactive mode covering most common cases. We also look at the
-class library which is provided with an object-oriented interface.
+matplotlib is probably the single most used Python package for 2D-graphics. It
+provides both a very quick way to visualize data from Python and
+publication-quality figures in many formats.  We are going to explore
+matplotlib in interactive mode covering most common cases.
 
 **IPython and the pylab mode**
 
 `IPython <http://ipython.org/>`_ is an enhanced interactive Python shell that
 has lots of interesting features including named inputs and outputs, access to
 shell commands, improved debugging and many more. When we start it with the
-command line argument -pylab (--pylab since IPython version 0.12), it
-allows interactive matplotlib sessions that has Matlab/Mathematica-like
-functionality.
+command line argument -pylab (--pylab since IPython version 0.12), it allows
+interactive matplotlib sessions that has Matlab/Mathematica-like functionality.
 
 **pylab**
 
@@ -92,10 +90,11 @@ Using defaults
 
 
 Matplotlib comes with a set of default settings that allow to customize all
-kinds of properties. You can `control
-<http://matplotlib.sourceforge.net/users/customizing.html>`_ the defaults of
-almost every property in matplotlib: figure size and dpi, line width, color and
-style, axes, axis and grid properties, text and font properties and so on.
+kinds of properties. You can control the defaults of almost every property in
+matplotlib: figure size and dpi, line width, color and style, axes, axis and
+grid properties, text and font properties and so on. While matplotlib defaults
+are rather good in most cases, you may want to modify some properties for
+specific cases.
 
 
 .. code-block:: python
@@ -140,7 +139,7 @@ properties`_ and `Line styles`_ below).
    figure(figsize=(8,6), dpi=80)
 
    # Create a new subplot from a grid of 1x1
-   subplot(111)
+   subplot(1,1,1)
 
    X = np.linspace(-np.pi, np.pi, 256,endpoint=True)
    C,S = np.cos(X), np.sin(X)
@@ -361,8 +360,10 @@ Annotate some points
    :align: right
 
 
-Let's annotate some interesting point using the annotate command.
-
+Let's annotate some interesting point using the annotate command. We chose then
+2π/3 angle and we want to annotate both the sine and the cosine. We'll first
+draw a marker on the curve as well as a straight dotted line. Then, we'll use
+the annotate command to display some text with an arrow.
 
 .. code-block:: python
 
@@ -424,20 +425,19 @@ the data and the labels.
 
 
 
-Figures, Subplots, and Axes
-===========================
+Figures, Subplots, Axes and Ticks
+=================================
 
 So far we have used implicit figure and axes creation.  This is handy for fast
-plots. We can have more control over the display using figure, subplot,
-and axes explicitly.  A figure in matplotlib means the whole window
-in the user interface. Within this figure there can be subplots.  While
-subplot positions the plots in a regular grid, axes allows free
-placement within the figure. Both can be useful depending on your
-intention.  We've already work with figures and subplots without explicitly
-calling them.  When we call plot matplotlib calls gca() to get the
-current axes and gca in turn calls gcf() to get the current figure. If
-there is none it calls figure() to make one, strictly speaking, to make a
-subplot(111).  Let's look at the details.
+plots. We can have more control over the display using figure, subplot, and
+axes explicitly. A figure in matplotlib means the whole window in the user
+interface. Within this figure there can be subplots. While subplot positions
+the plots in a regular grid, axes allows free placement within the figure. Both
+can be useful depending on your intention. We've already work with figures and
+subplots without explicitly calling them. When we call plot matplotlib calls
+gca() to get the current axes and gca in turn calls gcf() to get the current
+figure. If there is none it calls figure() to make one, strictly speaking, to
+make a subplot(111). Let's look at the details.
 
 Figures
 -------
@@ -475,17 +475,22 @@ Subplots
 --------
 
 With subplot you can arrange plots in regular grid. You need to specify the
-number of rows and columns and the number of the plot.
+number of rows and columns and the number of the plot. Note that the `gridspec
+<http://matplotlib.sourceforge.net/users/gridspec.html>`_ command is a powerful
+alternative.
 
 .. image:: figures/subplot-horizontal.png
 .. image:: figures/subplot-vertical.png
 .. image:: figures/subplot-grid.png
+.. image:: figures/gridspec.png
+
 
 **Sources**
 
  * `subplot-horizontal.py <scripts/subplot-horizontal.py>`_
  * `subplot-vertical.py <scripts/subplot-vertical.py>`_
  * `subplot-grid.py <scripts/subplot-grid.py>`_
+ * `gridspec.py <scripts/gridspec.py>`_
 
 
 
@@ -493,7 +498,7 @@ Axes
 ----
 
 Axes are very similar to subplots but allow placement of plots at any location
-in the figure.  So if we want to put a smaller plot inside a bigger one we do
+in the figure. So if we want to put a smaller plot inside a bigger one we do
 so with axes:
 
 .. image:: figures/axes.png
@@ -507,40 +512,60 @@ so with axes:
 
 
 Ticks
-=====
-
-Where and What
---------------
+-----
 
 Well formatted ticks are an important part of publishing-ready
-figures. ``matplotlib`` provides a totally configurable system
-for ticks. There are tick locators to specify where ticks
-should appear and tick formatters to make ticks look like the way you want.
-Major and minor ticks can be located and formatted independently from
-each other. Per default minor ticks are not shown, i.e. there is only
-an empty list for them because it is as ``NullLocator`` (see below).
+figures. Matplotlib provides a totally configurable system for ticks. There are
+tick locators to specify where ticks should appear and tick formatters to make
+ticks look like the way you want. Major and minor ticks can be located and
+formatted independently from each other. Per default minor ticks are not shown,
+i.e. there is only an empty list for them because it is as NullLocator (see
+below).
 
 Tick Locators
--------------
+.............
 
 There are several locators for different kind of requirements:
 
-=============== ===============================================================
+=============== ====================================================================
 Class           Description
-=============== ===============================================================
-NullLocator     no ticks
-IndexLocator    locator for index plots (e.g. where ``x = range(len(y)``)
-LinearLocator   evenly spaced ticks from min to max
-LogLocator      logarithmically ticks from min to max
-MultipleLocator ticks and range are a multiple of base; either integer or float
-AutoLocator     choose a MultipleLocator and dynamically reassign
-=============== ===============================================================
+=============== ====================================================================
+NullLocator     No ticks.
 
-All of these locators derive from the base class ``matplotlib.ticker.Locator``.
+                .. image:: figures/ticks-NullLocator.png
+
+IndexLocator    Place a tick on every multiple of some base number of points plotted.
+
+                .. image:: figures/ticks-IndexLocator.png
+
+FixedLocator    Tick locations are fixed.
+
+                .. image:: figures/ticks-FixedLocator.png
+
+LinearLocator   Determine the tick locations.
+
+                .. image:: figures/ticks-LinearLocator.png
+
+MultipleLocator Set a tick on every integer that is multiple of some base.
+
+                .. image:: figures/ticks-MultipleLocator.png
+
+AutoLocator     Select no more than n intervals at nice locations.
+
+                .. image:: figures/ticks-AutoLocator.png
+
+LogLocator      Determine the tick locations for log axes.
+
+                .. image:: figures/ticks-LogLocator.png
+
+=============== ====================================================================
+
+
+All of these locators derive from the base class matplotlib.ticker.Locator.
 You can make your own locator deriving from it.
 
-Handling dates as ticks can be especially tricky. Therefore, ``matplotlib``
-provides special locators in ``matplotlib.dates``:
+Handling dates as ticks can be especially tricky. Therefore, matplotlib
+provides special locators in matplotlib.dates:
 
 ======================= ===========================================
 Class                   Description
@@ -556,7 +581,7 @@ RRuleLocator            locate using a matplotlib.dates.rrule
 
 
 Tick Formatters
----------------
+...............
 
 Similarly to locators, there are formatters:
 
@@ -574,12 +599,11 @@ LogFormatter            formatter for log axes
 DateFormatter           use an strftime string to format the date
 ======================= =============================================
 
-All of these formatters derive from the base class ``matplotlib.ticker.Formatter``.
+All of these formatters derive from the base class matplotlib.ticker.Formatter.
 You can make your own formatter deriving from it.
 
-Now we set our major locator to 2 and the minor locator
-to 1. We also format the numbers as decimals using the
-``FormatStrFormatter``::
+Now we set our major locator to 2 and the minor locator to 1. We also format
+the numbers as decimals using the FormatStrFormatter::
 
     >>> major_locator = pl.MultipleLocator(2)
     >>> major_formatter = pl.FormatStrFormatter('%5.2f')
@@ -635,7 +659,7 @@ Other Types of Plots
 Regular Plots
 -------------
 
-.. image:: figures/plot.png
+.. image:: figures/plot_ex.png
    :align: right
 
 .. code-block:: python
@@ -643,28 +667,34 @@ Regular Plots
    from pylab import *
 
    n = 256
-   X = np.linspace(0,2,n)
-   Y = np.sin(2*np.pi*X)
-   plot(X,Y), show()
+   X = np.linspace(-np.pi,np.pi,n,endpoint=True)
+   Y = np.sin(2*X)
+
+   plot (X, Y+1, color='blue', alpha=1.00)
+   plot (X, Y-1, color='blue', alpha=1.00)
+   show()
 
 **Exercice**
 
   Starting from the code above, try to reproduce the graphic on the right taking
-  care of axis limits, line width and color.
+  care of filled areas.
 
 **Hints**
 
-  You can set ticks with an empty list.
+  You need to use the `fill_between
+  <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.fill_between>`_
+  command.
 
 **Solution**
 
   Click `here <scripts/plot_ex.py>`_ for the solution
 
+
+
 Scatter Plots
 -------------
 
-
-.. image:: figures/scatter.png
+.. image:: figures/scatter_ex.png
    :align: right
 
 .. code-block:: python
@@ -674,12 +704,14 @@ Scatter Plots
    n = 1024
    X = np.random.normal(0,1,n)
    Y = np.random.normal(0,1,n)
-   scatter(X,Y), show()
+
+   scatter(X,Y)
+   show()
 
 **Exercice**
 
   Starting from the code above, try to reproduce the graphic on the right taking
-  care of axis limits, markers size and color and transparency.
+  care of marker size, color and transparency.
 
 **Hints**
 
@@ -694,36 +726,47 @@ Scatter Plots
 Bar Plots
 ---------
 
-.. image:: figures/bar.png
+.. image:: figures/bar_ex.png
    :align: right
 
 .. code-block:: python
 
    from pylab import *
 
+   n = 12
    X = np.arange(n)
    Y1 = (1-X/float(n)) * np.random.uniform(0.5,1.0,n)
    Y2 = (1-X/float(n)) * np.random.uniform(0.5,1.0,n)
-   bar(X, Y1)
+
+   bar(X, +Y1, facecolor='#9999ff', edgecolor='white')
+   bar(X, -Y2, facecolor='#ff9999', edgecolor='white')
+
+   for x,y in zip(X,Y1):
+       text(x+0.4, y+0.05, '%.2f' % y, ha='center', va= 'bottom')
+
+   ylim(-1.25,+1.25)
+   show()
+
 
 **Exercice**
 
-  Starting from the code above, try to reproduce the graphic on the right taking
-  care of axis limits, bars size and color.
+  Starting from the code above, try to reproduce the graphic on the right by
+  adding labels for red bars.
 
 **Hints**
 
-  You'll need two bar plots.
+  You need to take care of text alignment.
 
 **Solution**
 
   Click `here <scripts/bar_ex.py>`_ for the solution
 
 
+
 Contour Plots
 -------------
 
-.. image:: figures/contour.png
+.. image:: figures/contour_ex.png
    :align: right
 
 .. code-block:: python
@@ -736,17 +779,22 @@ Contour Plots
    x = np.linspace(-3,3,n)
    y = np.linspace(-3,3,n)
    X,Y = np.meshgrid(x,y)
-   contour(X,Y,f(X,Y))
+
+   contourf(X, Y, f(X,Y), 8, alpha=.75, cmap='jet')
+   C = contour(X, Y, f(X,Y), 8, colors='black', linewidth=.5)
    show()
+
 
 **Exercice**
 
   Starting from the code above, try to reproduce the graphic on the right taking
-  care of fills and lines, transparency, number of contours and colors.
+  care of the colormap (see `Colormaps`_ below). 
 
 **Hints**
 
-  You'll need two an additional contourf plot.
+  You need to use the `clabel
+  <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.clabel>`_
+  command.
 
 
 **Solution**
@@ -758,25 +806,35 @@ Contour Plots
 Imshow
 ------
 
-.. image:: figures/imshow.png
+.. image:: figures/imshow_ex.png
    :align: right
 
 .. code-block:: python
 
    from pylab import *
 
-   n = 32
-   Z = np.random.uniform(0,1,(n,n))
-   imshow(Z), show()
+   def f(x,y): return (1-x/2+x**5+y**3)*np.exp(-x**2-y**2)
+
+   n = 10
+   x = np.linspace(-3,3,4*n)
+   y = np.linspace(-3,3,3*n)
+   X,Y = np.meshgrid(x,y)
+   Z = f(X,Y)
+
+   imshow(Z)
+   show()
+
 
 **Exercice**
 
   Starting from the code above, try to reproduce the graphic on the right taking
-  care of colormaps, axis aspects and image interpolation.
+  care of colormap, image interpolation and origin.
 
 **Hints**
 
-  You need to take care of the 'origin' of the image in the imshow command.
+  You need to take care of the 'origin' of the image in the imshow command and
+  use a `colorbar
+  <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.colorbar>`_
 
 **Solution**
 
@@ -786,7 +844,7 @@ Imshow
 Pie Charts
 ----------
 
-.. image:: figures/pie.png
+.. image:: figures/pie_ex.png
    :align: right
 
 .. code-block:: python
@@ -815,7 +873,7 @@ Pie Charts
 Quiver Plots
 ------------
 
-.. image:: figures/quiver.png
+.. image:: figures/quiver_ex.png
    :align: right
 
 .. code-block:: python
@@ -836,7 +894,6 @@ Quiver Plots
 
   You need to draw arrows twice.
 
-
 **Solution**
 
   Click `here <scripts/quiver_ex.py>`_ for the solution
@@ -846,7 +903,7 @@ Quiver Plots
 Grids
 -----
 
-.. image:: figures/grid.png
+.. image:: figures/grid_ex.png
    :align: right
 
 .. code-block:: python
@@ -865,7 +922,7 @@ Grids
 **Exercice**
 
   Starting from the code above, try to reproduce the graphic on the right taking
-  care of line styles for the grid
+  care of line styles.
 
 **Solution**
 
@@ -875,7 +932,7 @@ Grids
 Multi Plots
 -----------
 
-.. image:: figures/multiplot.png
+.. image:: figures/multiplot_ex.png
    :align: right
 
 
@@ -907,21 +964,163 @@ Multi Plots
 Polar Axis
 ----------
 
-.. image:: figures/polar.png
+.. image:: figures/polar_ex.png
    :align: right
+
+.. code-block:: python
+
+   from pylab import *
+
+   subplot(111)
+
+   N = 20
+   theta = np.arange(0.0, 2*np.pi, 2*np.pi/N)
+   radii = 10*np.random.rand(N)
+   width = np.pi/4*np.random.rand(N)
+   bars = bar(theta, radii, width=width, bottom=0.0)
+
+   for r,bar in zip(radii, bars):
+       bar.set_facecolor( cm.jet(r/10.))
+       bar.set_alpha(0.5)
+
+   show()
+
+**Exercice**
+
+  Starting from the code above, try to reproduce the graphic on the right.
+
+**Hints**
+
+  You only need to modify the subplot line
+
+**Solution**
+
+  Click `here <scripts/polar_ex.py>`_ for the solution
+
 
 
 3D Plots
 --------
 
-.. image:: figures/plot3d.png
+.. image:: figures/plot3d_ex.png
    :align: right
+
+.. code-block:: python
+
+
+   from pylab import *
+   from mpl_toolkits.mplot3d import axes3d
+
+   ax = gca(projection='3d')
+   X, Y, Z = axes3d.get_test_data(0.05)
+   cset = ax.contourf(X, Y, Z)
+   show()
+
+**Exercice**
+
+  Starting from the code above, try to reproduce the graphic on the right.
+
+**Hints**
+
+  You only need to remove all ticks (and there are new ones).
+
+**Solution**
+
+  Click `here <scripts/plot3d_ex.py>`_ for the solution
+
 
 Text
---------
+----
 
-.. image:: figures/text.png
+.. image:: figures/text_ex.png
    :align: right
+
+**Exercice**
+
+  Try to do the same from scratch !
+
+**Hints**
+
+  Have a look at the `matplotlib logo
+  <http://matplotlib.sourceforge.net/examples/api/logo2.html>`_.
+
+**Solution**
+
+  Click `here <scripts/text_ex.py>`_ for the solution
+
+
+
+
+Beyond this tutorial
+====================
+
+Matplotlib benefits from an extensive documentation as well as a large
+community of users and developpers. Here are some links of interests:
+
+Tutorials
+---------
+
+* `Pyplot tutorial <http://matplotlib.sourceforge.net/users/pyplot_tutorial.html>`_
+* `Image tutorial <http://matplotlib.sourceforge.net/users/image_tutorial.html>`_
+* `Text tutorial <http://matplotlib.sourceforge.net/users/index_text.html>`_
+* `Artist tutorial <http://matplotlib.sourceforge.net/users/artists.html>`_
+* `Path tutorial <http://matplotlib.sourceforge.net/users/path_tutorial.html>`_
+* `Transforms tutorial <http://matplotlib.sourceforge.net/users/transforms_tutorial.html>`_
+
+Matplotlib documentation
+------------------------
+
+* `User guide <http://matplotlib.sourceforge.net/users/index.html>`_
+* `FAQ <http://matplotlib.sourceforge.net/faq/index.html>`_
+* `Screenshots <http://matplotlib.sourceforge.net/users/screenshots.html>`_
+
+
+Code documentation
+------------------
+
+The code is fairly well documented and you can quickly access a specific
+command from within a python session:
+
+.. code-block:: python
+
+   >>> from pylab import *
+   >>> help(plot)
+   Help on function plot in module matplotlib.pyplot:
+
+   plot(*args, **kwargs)
+      Plot lines and/or markers to the
+      :class:`~matplotlib.axes.Axes`.  *args* is a variable length
+      argument, allowing for multiple *x*, *y* pairs with an
+      optional format string.  For example, each of the following is
+      legal::
+    
+          plot(x, y)         # plot x and y using default line style and color
+          plot(x, y, 'bo')   # plot x and y using blue circle markers
+          plot(y)            # plot y using x as index array 0..N-1
+          plot(y, 'r+')      # ditto, but with red plusses
+    
+      If *x* and/or *y* is 2-dimensional, then the corresponding columns
+      will be plotted.
+      ...
+
+Galleries
+---------
+
+The `matplotlib gallery <http://matplotlib.sourceforge.net/gallery.html>`_ is
+also incredibly useful when you search how to render a given graphics. Each
+example comes with its source.
+
+A smaller gallery is also available `here <http://www.loria.fr/~rougier/coding/gallery/>`_.
+
+
+Mailing lists
+--------------
+
+Finally, there is a `user mailing list
+<https://lists.sourceforge.net/lists/listinfo/matplotlib-users>`_ where you can
+ask for help and a `developers mailing list
+<https://lists.sourceforge.net/lists/listinfo/matplotlib-devel>`_ that is more
+technical.
 
 
 
@@ -931,163 +1130,550 @@ Quick references
 Line properties
 ----------------
 
-=============== ======================================== =======================================
-Property        Value
-=============== ======================================== =======================================
-alpha           alpha transparency on 0-1 scale          .. image:: figures/alpha.png
-                                                            :target: figures/alpha-big.png
-antialiased     True or False - use antialised rendering .. image:: figures/antialiased.png
-                                                            :target: figures/antialiased-big.png
-color           matplotlib color arg                     .. image:: figures/color.png
-                                                            :target: figures/color-big.png
-linestyle       see below
-linewidth       float, the line width in points          .. image:: figures/linewidth.png
-                                                            :target: figures/linewidth-big.png
-marker          see below
-markeredgewidth line width around the marker symbol      .. image:: figures/mew.png
-                                                            :target: figures/mew-big.png
-markeredgecolor edge color if a marker is used           .. image:: figures/mec.png
-                                                            :target: figures/mec-big.png
-markerfacecolor face color if a marker is used           .. image:: figures/mfc.png
-                                                            :target: figures/mfc-big.png
-markersize      size of the marker in points             .. image:: figures/ms.png
-                                                            :target: figures/ms-big.png
-=============== ======================================== =======================================
+.. list-table::
+   :widths: 15 30 50
+   :header-rows: 1
+
+   * - Property
+     - Description
+     - Appearance
+
+   * - alpha (or a)
+     - alpha transparency on 0-1 scale
+     - .. image:: figures/alpha.png
+
+   * - antialiased
+     - True or False - use antialised rendering
+     - .. image:: figures/aliased.png
+       .. image:: figures/antialiased.png
+
+   * - color (or c)
+     - matplotlib color arg
+     - .. image:: figures/color.png
+
+   * - linestyle (or ls)
+     - see below
+     -
+
+   * - linewidth (or lw)
+     - float, the line width in points
+     - .. image:: figures/linewidth.png
+
+   * - marker
+     - see below
+     -
+
+   * - markeredgewidth (or mew)
+     - line width around the marker symbol
+     - .. image:: figures/mew.png
+
+   * - markeredgecolor (or mec)
+     - edge color if a marker is used
+     - .. image:: figures/mec.png
+
+   * - markerfacecolor (or mfc)
+     - face color if a marker is used
+     - .. image:: figures/mfc.png
+
+   * - markersize (or ms)
+     - size of the marker in points
+     - .. image:: figures/ms.png
+
 
 
 Line styles
 -----------
 
-=========== ====================================== ========================================
-Symbol      Description                            Appearance
-=========== ====================================== ========================================
- ``-``      solid line                             .. image:: figures/linestyle--.png
-                                                      :target: figures/linestyle---big.png
- ``--``     dashed line                            .. image:: figures/linestyle---.png
-                                                      :target: figures/linestyle----big.png
- ``-.``     dash-dot line                          .. image:: figures/linestyle--..png
-                                                      :target: figures/linestyle--.-big.png
- ``:``      dotted line                            .. image:: figures/linestyle-:.png
-                                                      :target: figures/linestyle-:-big.png
- ``.``      points                                 .. image:: figures/linestyle-..png
-                                                     :target: figures/linestyle-.-big.png
- ``,``      pixels                                 .. image:: figures/linestyle-,.png
-                                                     :target: figures/linestyle-,-big.png
- ``o``      circle symbols                         .. image:: figures/linestyle-o.png
-                                                     :target: figures/linestyle-o-big.png
- ``^``      triangle up symbols                    .. image:: figures/linestyle-^.png
-                                                     :target: figures/linestyle-^-big.png
- ``v``      triangle down symbols                  .. image:: figures/linestyle-v.png
-                                                     :target: figures/linestyle-v-big.png
- ``<``      triangle left symbols                  .. image:: figures/linestyle-<.png
-                                                     :target: figures/linestyle-<-big.png
- ``>``      triangle right symbols                 .. image:: figures/linestyle->.png
-                                                     :target: figures/linestyle->-big.png
- ``s``      square symbols                         .. image:: figures/linestyle-s.png
-                                                     :target: figures/linestyle-s-big.png
- ``+``      plus symbols                           .. image:: figures/linestyle-+.png
-                                                     :target: figures/linestyle-+-big.png
- ``x``      cross symbols                          .. image:: figures/linestyle-x.png
-                                                     :target: figures/linestyle-x-big.png
- ``D``      diamond symbols                        .. image:: figures/linestyle-D.png
-                                                     :target: figures/linestyle-D-big.png
- ``d``      thin diamond symbols                   .. image:: figures/linestyle-d.png
-                                                     :target: figures/linestyle-d-big.png
- ``1``      tripod down symbols                    .. image:: figures/linestyle-1.png
-                                                     :target: figures/linestyle-1-big.png
- ``2``      tripod up symbols                      .. image:: figures/linestyle-2.png
-                                                     :target: figures/linestyle-2-big.png
- ``3``      tripod left symbols                    .. image:: figures/linestyle-3.png
-                                                     :target: figures/linestyle-3-big.png
- ``4``      tripod right symbols                   .. image:: figures/linestyle-4.png
-                                                     :target: figures/linestyle-4-big.png
- ``h``      hexagon symbols                        .. image:: figures/linestyle-h.png
-                                                     :target: figures/linestyle-h-big.png
- ``H``      rotated hexagon symbols                .. image:: figures/linestyle-H.png
-                                                     :target: figures/linestyle-H-big.png
- ``p``      pentagon symbols                       .. image:: figures/linestyle-p.png
-                                                     :target: figures/linestyle-p-big.png
- ``|``      vertical line symbols                  .. image:: figures/linestyle-|.png
-                                                     :target: figures/linestyle-|-big.png
- ``_``      horizontal line symbols                .. image:: figures/linestyle-_.png
-                                                     :target: figures/linestyle-_-big.png
-=========== ====================================== ========================================
+.. list-table::
+   :widths: 10 20 50
+   :header-rows: 1
+
+   * - Symbol
+     - Description
+     - Appearance
+
+   * - ``-``
+     - solid line
+     - .. image:: figures/linestyle--.png
+
+   * - ``--``
+     - dashed line
+     - .. image:: figures/linestyle---.png
+
+   * - ``-.``
+     - dash-dot line
+     - .. image:: figures/linestyle--..png
+
+   * - ``:``
+     - dotted line
+     - .. image:: figures/linestyle-:.png
+
+   * - ``.``
+     - points
+     - .. image:: figures/linestyle-..png
+
+   * - ``,``
+     - pixels
+     - .. image:: figures/linestyle-,.png
+     
+   * - ``o``
+     - circle symbols
+     - .. image:: figures/linestyle-o.png
+
+   * - ``^``
+     - triangle up symbols
+     - .. image:: figures/linestyle-^.png
+
+   * - ``v``
+     - triangle down symbols
+     - .. image:: figures/linestyle-v.png
+
+   * - ``<``
+     - triangle left symbols
+     - .. image:: figures/linestyle-<.png
+
+   * - ``>``
+     - triangle right symbols
+     - .. image:: figures/linestyle->.png
+
+   * - ``s``
+     - square symbols
+     - .. image:: figures/linestyle-s.png
+
+   * - ``+``
+     - plus symbols
+     - .. image:: figures/linestyle-+.png
+
+   * - ``x``
+     -  cross symbols
+     - .. image:: figures/linestyle-x.png
+
+   * - ``D``
+     - diamond symbols
+     - .. image:: figures/linestyle-D.png
+
+   * - ``d``
+     - thin diamond symbols
+     - .. image:: figures/linestyle-d.png
+
+   * - ``1``
+     - tripod down symbols
+     - .. image:: figures/linestyle-1.png
+
+   * - ``2``
+     - tripod up symbols
+     - .. image:: figures/linestyle-2.png
+
+   * - ``3``
+     - tripod left symbols
+     - .. image:: figures/linestyle-3.png
+
+   * - ``4``
+     - tripod right symbols
+     - .. image:: figures/linestyle-4.png
+
+   * - ``h``
+     - hexagon symbols
+     - .. image:: figures/linestyle-h.png
+
+   * - ``H``
+     - rotated hexagon symbols
+     - .. image:: figures/linestyle-H.png
+
+   * - ``p``
+     -  pentagon symbols
+     - .. image:: figures/linestyle-p.png
+
+   * - ``|``
+     - vertical line symbols
+     - .. image:: figures/linestyle-|.png
+
+   * - ``_``
+     - horizontal line symbols
+     - .. image:: figures/linestyle-_.png
+
+
 
 
 Colormaps
 ---------
 
-============= ================================================ ============= ================================================ 
-Name          Appearance                                       Name          Appearance                                       
-============= ================================================ ============= ================================================ 
-Accent        .. image:: figures/cmap-Accent.png               Blues         .. image:: figures/cmap-Blues.png               
-                 :target: figures/cmap-Accent-big.png                           :target: figures/cmap-Blues-big.png          
-BrBG          .. image:: figures/cmap-BrBG.png                 BuGn          .. image:: figures/cmap-BuGn.png                
-                 :target: figures/cmap-BrBG-big.png                             :target: figures/cmap-BuGn-big.png           
-BuPu          .. image:: figures/cmap-BuPu.png                 CMRmap        .. image:: figures/cmap-CMRmap.png              
-                 :target: figures/cmap-BuPu-big.png                             :target: figures/cmap-CMRmap-big.png         
-Dark2         .. image:: figures/cmap-Dark2.png                GnBu          .. image:: figures/cmap-GnBu.png                
-                 :target: figures/cmap-Dark2-big.png                            :target: figures/cmap-GnBu-big.png           
-Greens        .. image:: figures/cmap-Greens.png               Greys         .. image:: figures/cmap-Greys.png               
-                 :target: figures/cmap-Greens-big.png                           :target: figures/cmap-Greys-big.png          
-OrRd          .. image:: figures/cmap-OrRd.png                 Oranges       .. image:: figures/cmap-Oranges.png             
-                 :target: figures/cmap-OrRd-big.png                             :target: figures/cmap-Oranges-big.png        
-PRGn          .. image:: figures/cmap-PRGn.png                 Paired        .. image:: figures/cmap-Paired.png              
-                 :target: figures/cmap-PRGn-big.png                             :target: figures/cmap-Paired-big.png         
-Pastel1       .. image:: figures/cmap-Pastel1.png              Pastel2       .. image:: figures/cmap-Pastel2.png             
-                 :target: figures/cmap-Pastel1-big.png                          :target: figures/cmap-Pastel2-big.png        
-PiYG          .. image:: figures/cmap-PiYG.png                 PuBu          .. image:: figures/cmap-PuBu.png                
-                 :target: figures/cmap-PiYG-big.png                             :target: figures/cmap-PuBu-big.png           
-PuBuGn        .. image:: figures/cmap-PuBuGn.png               PuOr          .. image:: figures/cmap-PuOr.png                
-                 :target: figures/cmap-PuBuGn-big.png                           :target: figures/cmap-PuOr-big.png           
-PuRd          .. image:: figures/cmap-PuRd.png                 Purples       .. image:: figures/cmap-Purples.png             
-                 :target: figures/cmap-PuRd-big.png                             :target: figures/cmap-Purples-big.png        
-RdBu          .. image:: figures/cmap-RdBu.png                 RdGy          .. image:: figures/cmap-RdGy.png                
-                 :target: figures/cmap-RdBu-big.png                             :target: figures/cmap-RdGy-big.png           
-RdPu          .. image:: figures/cmap-RdPu.png                 RdYlBu        .. image:: figures/cmap-RdYlBu.png              
-                 :target: figures/cmap-RdPu-big.png                             :target: figures/cmap-RdYlBu-big.png         
-RdYlGn        .. image:: figures/cmap-RdYlGn.png               Reds          .. image:: figures/cmap-Reds.png                
-                 :target: figures/cmap-RdYlGn-big.png                           :target: figures/cmap-Reds-big.png           
-Set1          .. image:: figures/cmap-Set1.png                 Set2          .. image:: figures/cmap-Set2.png                
-                 :target: figures/cmap-Set1-big.png                             :target: figures/cmap-Set2-big.png           
-Set3          .. image:: figures/cmap-Set3.png                 Spectral      .. image:: figures/cmap-Spectral.png            
-                 :target: figures/cmap-Set3-big.png                             :target: figures/cmap-Spectral-big.png       
-YlGn          .. image:: figures/cmap-YlGn.png                 YlGnBu        .. image:: figures/cmap-YlGnBu.png              
-                 :target: figures/cmap-YlGn-big.png                             :target: figures/cmap-YlGnBu-big.png         
-YlOrBr        .. image:: figures/cmap-YlOrBr.png               YlOrRd        .. image:: figures/cmap-YlOrRd.png              
-                 :target: figures/cmap-YlOrBr-big.png                           :target: figures/cmap-YlOrRd-big.png         
-afmhot        .. image:: figures/cmap-afmhot.png               autumn        .. image:: figures/cmap-autumn.png              
-                 :target: figures/cmap-afmhot-big.png                           :target: figures/cmap-autumn-big.png         
-binary        .. image:: figures/cmap-binary.png               bone          .. image:: figures/cmap-bone.png                
-                 :target: figures/cmap-binary-big.png                           :target: figures/cmap-bone-big.png           
-brg           .. image:: figures/cmap-brg.png                  bwr           .. image:: figures/cmap-bwr.png                 
-                 :target: figures/cmap-brg-big.png                              :target: figures/cmap-bwr-big.png            
-cool          .. image:: figures/cmap-cool.png                 coolwarm      .. image:: figures/cmap-coolwarm.png            
-                 :target: figures/cmap-cool-big.png                             :target: figures/cmap-coolwarm-big.png       
-copper        .. image:: figures/cmap-copper.png               cubehelix     .. image:: figures/cmap-cubehelix.png           
-                 :target: figures/cmap-copper-big.png                           :target: figures/cmap-cubehelix-big.png      
-flag          .. image:: figures/cmap-flag.png                 gist_earth    .. image:: figures/cmap-gist_earth.png          
-                 :target: figures/cmap-flag-big.png                             :target: figures/cmap-gist_earth-big.png     
-gist_gray     .. image:: figures/cmap-gist_gray.png            gist_heat     .. image:: figures/cmap-gist_heat.png           
-                 :target: figures/cmap-gist_gray-big.png                        :target: figures/cmap-gist_heat-big.png      
-gist_ncar     .. image:: figures/cmap-gist_ncar.png            gist_rainbow  .. image:: figures/cmap-gist_rainbow.png        
-                 :target: figures/cmap-gist_ncar-big.png                        :target: figures/cmap-gist_rainbow-big.png   
-gist_stern    .. image:: figures/cmap-gist_stern.png           gist_yarg     .. image:: figures/cmap-gist_yarg.png           
-                 :target: figures/cmap-gist_stern-big.png                       :target: figures/cmap-gist_yarg-big.png      
-gnuplot       .. image:: figures/cmap-gnuplot.png              gnuplot2      .. image:: figures/cmap-gnuplot2.png            
-                 :target: figures/cmap-gnuplot-big.png                          :target: figures/cmap-gnuplot2-big.png       
-gray          .. image:: figures/cmap-gray.png                 hot           .. image:: figures/cmap-hot.png                 
-                 :target: figures/cmap-gray-big.png                             :target: figures/cmap-hot-big.png            
-hsv           .. image:: figures/cmap-hsv.png                  jet           .. image:: figures/cmap-jet.png                 
-                 :target: figures/cmap-hsv-big.png                              :target: figures/cmap-jet-big.png            
-ocean         .. image:: figures/cmap-ocean.png                pink          .. image:: figures/cmap-pink.png                
-                 :target: figures/cmap-ocean-big.png                            :target: figures/cmap-pink-big.png           
-prism         .. image:: figures/cmap-prism.png                rainbow       .. image:: figures/cmap-rainbow.png             
-                 :target: figures/cmap-prism-big.png                            :target: figures/cmap-rainbow-big.png        
-seismic       .. image:: figures/cmap-seismic.png              spectral      .. image:: figures/cmap-spectral.png            
-                 :target: figures/cmap-seismic-big.png                          :target: figures/cmap-spectral-big.png       
-spring        .. image:: figures/cmap-spring.png               summer        .. image:: figures/cmap-summer.png              
-                 :target: figures/cmap-spring-big.png                           :target: figures/cmap-summer-big.png         
-terrain       .. image:: figures/cmap-terrain.png              winter        .. image:: figures/cmap-winter.png              
-                 :target: figures/cmap-terrain-big.png                          :target: figures/cmap-winter-big.png         
-============= ================================================ ============= ================================================ 
+From https://gist.github.com/2719900 by endolith:
+
+  All colormaps can be reversed by appending ``_r``: For instance, ``gray_r`` is the reverse of ``gray``.
+
+  There are 3 common color schemes used in visualization:
+
+  1. Sequential schemes, for unipolar data that progresses from low to high
+
+  2. Diverging schemes, for bipolar data that emphasizes positive or negative
+     deviations from a central value
+
+  3. Qualitative schemes, which don't have a relationship to magnitude
+
+
+
+Base colormaps
+..............
+
+.. list-table::
+   :widths: 10 30 50
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Appearance
+
+   * - autumn
+     - sequential increasing shades of red-orange-yellow
+     - .. image:: figures/cmap-autumn.png
+
+   * - bone
+     - sequential black-white color map with a tinge of blue, to emulate X-ray
+       film
+     - .. image:: figures/cmap-bone.png
+
+   * - cool
+     - sequential decreasing shades of cyan-magenta
+     - .. image:: figures/cmap-cool.png
+
+
+   * - copper
+     - sequential increasing shades of black-copper
+     - .. image:: figures/cmap-copper.png
+
+   * - flag
+     - repeating red-white-blue-black pattern
+     - .. image:: figures/cmap-flag.png
+
+   * - gray
+     - simple sequential linearly-increasing black-to-white grayscale
+     - .. image:: figures/cmap-gray.png
+
+   * - hot
+     - sequential black-red-yellow-white, to emulate blackbody radiation from
+       an object at increasing temperatures
+     - .. image:: figures/cmap-hot.png
+
+   * - hsv
+     - red-yellow-green-cyan-blue-pink-magenta, formed by changing the hue
+       component in the HSV color space; meant to be used in plotting periodic
+       data (that is, in which the maximum magnitude and the minimum magnitude
+       are equivalent)
+     - .. image:: figures/cmap-hsv.png
+
+   * - jet
+     - blue-cyan-yellow-red, a variant of hsv; based on a fluid-jet simulation by NCSA
+     - .. image:: figures/cmap-jet.png
+
+   * - pink
+     - sequential increasing pastel black-pink-white, meant for sepia tone
+       colorization of photographs
+     - .. image:: figures/cmap-pink.png
+
+   * - prism
+     - repeating red-yellow-green-blue-purple-...-green pattern
+     - .. image:: figures/cmap-prism.png
+
+   * - spectral
+     - black-purple-blue-green-yellow-red-white spectrum
+     - .. image:: figures/cmap-spectral.png
+
+   * - spring
+     - shades of magenta-yellow
+     - .. image:: figures/cmap-spring.png
+
+   * - summer
+     - shades of green-yellow
+     - .. image:: figures/cmap-summer.png
+
+   * - winter
+     - shades of blue-green
+     - .. image:: figures/cmap-winter.png
+
+
+GIST colormaps
+..............
+
+.. list-table::
+   :widths: 10 30 50
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Appearance
+
+   * - gist_earth
+     - mapmaker's colors from dark blue deep ocean to green lowlands to brown
+       highlands to white mountains
+     - .. image:: figures/cmap-gist_earth.png
+
+   * - gist_gray
+     - simple sequential linearly-increasing black-to-white grayscale
+     - .. image:: figures/cmap-gist_gray.png
+
+   * - gist_heat
+     - sequential red-orange-yellow-white, to emulate blackbody radiation from
+       an iron bar as it grows hotter
+     - .. image:: figures/cmap-gist_heat.png
+
+   * - gist_ncar
+     - pseudo-spectral colormap from National Center for Atmospheric Research
+     - .. image:: figures/cmap-gist_ncar.png
+
+   * - gist_rainbow
+     - runs through the colors in spectral order at nearly constant intensity
+     - .. image:: figures/cmap-gist_rainbow.png
+
+   * - gist_stern
+     - "Stern special" color table from Interactive Data Language software
+     - .. image:: figures/cmap-gist_stern.png
+
+   * - gist_yarg
+     - gist_gray reversed (hende yarg)
+     - .. image:: figures/cmap-gist_yarg.png
+
+
+ColorBrewer colormaps
+.....................
+
+The following 34 colormaps are based on the `ColorBrewer
+<http://colorbrewer2.org>`_ color specifications and designs developed by
+Cynthia Brewer:
+
+
+**Sequential**
+
+From `ColorBrewer <http://colorbrewer2.org>`_:
+
+  Sequential schemes are suited to ordered data that progress from low to
+  high. Lightness steps dominate the look of these schemes, with light colors for
+  low data values to dark colors for high data values.
+
+
+.. list-table::
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Name
+     - Appearance
+
+   * - BrBG
+     - .. image:: figures/cmap-BrBG.png
+
+   * - PiYG
+     - .. image:: figures/cmap-PiYG.png
+
+   * - PRGn
+     - .. image:: figures/cmap-PRGn.png
+
+   * - PuOr
+     - .. image:: figures/cmap-PuOr.png
+
+   * - RdBu
+     - .. image:: figures/cmap-RdBu.png
+
+   * - RdGy
+     - .. image:: figures/cmap-RdGy.png
+
+   * - RdYlBu
+     - .. image:: figures/cmap-RdYlBu.png
+
+   * - RdYlGn
+     - .. image:: figures/cmap-RdYlGn.png
+
+   * - Spectral
+     - .. image:: figures/cmap-Spectral.png
+
+
+
+**Diverging**
+
+From `ColorBrewer <http://colorbrewer2.org>`_:
+
+  Diverging schemes put equal emphasis on mid-range critical values and
+  extremes at both ends of the data range. The critical class or break in the
+  middle of the legend is emphasized with light colors and low and high
+  extremes are emphasized with dark colors that have contrasting hues.
+
+
+.. list-table::
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Name
+     - Appearance
+
+   * - Blues
+     - .. image:: figures/cmap-Blues.png
+
+   * - BuGn
+     - .. image:: figures/cmap-BuGn.png
+
+   * - BuPu
+     - .. image:: figures/cmap-BuPu.png
+
+   * - GnBu
+     - .. image:: figures/cmap-GnBu.png
+
+   * - Greens
+     - .. image:: figures/cmap-Greens.png
+
+   * - Greys
+     - .. image:: figures/cmap-Greys.png
+
+   * - Oranges
+     - .. image:: figures/cmap-Oranges.png
+
+   * - OrRd
+     - .. image:: figures/cmap-OrRd.png
+
+   * - PuBu
+     - .. image:: figures/cmap-PuBu.png
+
+   * - PuBuGn
+     - .. image:: figures/cmap-PuBuGn.png
+
+   * - PuRd
+     - .. image:: figures/cmap-PuRd.png
+
+   * - Purples
+     - .. image:: figures/cmap-Purples.png
+
+   * - RdPu
+     - .. image:: figures/cmap-RdPu.png
+
+   * - Reds
+     - .. image:: figures/cmap-Reds.png
+
+   * - YlGn
+     - .. image:: figures/cmap-YlGn.png
+
+   * - YlGnBu
+     - .. image:: figures/cmap-YlGnBu.png
+
+   * - YlOrBr
+     - .. image:: figures/cmap-YlOrBr.png
+
+   * - YlOrRd
+     - .. image:: figures/cmap-YlOrRd.png
+
+
+**Qualitative**
+
+From `ColorBrewer <http://colorbrewer2.org>`_:
+
+  Qualitative schemes do not imply magnitude differences between legend
+  classes, and hues are used to create the primary visual differences between
+  classes. Qualitative schemes are best suited to representing nominal or
+  categorical data.
+
+.. list-table::
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Name
+     - Appearance
+
+   * - Accent
+     - .. image:: figures/cmap-Accent.png
+
+   * - Dark2
+     - .. image:: figures/cmap-Dark2.png
+
+   * - Paired
+     - .. image:: figures/cmap-Paired.png
+
+   * - Pastel1
+     - .. image:: figures/cmap-Pastel1.png
+
+   * - Pastel2
+     - .. image:: figures/cmap-Pastel2.png
+
+   * - Set1
+     - .. image:: figures/cmap-Set1.png
+
+   * - Set2
+     - .. image:: figures/cmap-Set2.png
+
+   * - Set3
+     - .. image:: figures/cmap-Set3.png
+
+
+
+Miscellaneous colormaps
+.......................
+
+.. list-table::
+   :widths: 10 30 50
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Appearance
+
+
+   * - afmhot
+     - sequential black-orange-yellow-white blackbody spectrum, commonly used
+       in atomic force microscopy
+     - .. image:: figures/cmap-afmhot.png
+
+
+   * - binary
+     - (identical to gray_r)
+     - .. image:: figures/cmap-binary.png
+
+   * - brg
+     - blue-red-green
+     - .. image:: figures/cmap-brg.png
+
+   * - bwr
+     - diverging blue-white-red
+     - .. image:: figures/cmap-bwr.png
+
+   * - coolwarm
+     - diverging blue-gray-red, meant to avoid issues with 3D shading, color
+       blindness, and ordering of colors
+     - .. image:: figures/cmap-coolwarm.png
+
+   * - CMRmap
+     - "Default colormaps on color images often reproduce to confusing
+       grayscale images. The proposed colormap maintains an aesthetically
+       pleasing color image that automatically reproduces to a monotonic
+       grayscale with discrete, quantifiable saturation levels."
+     - .. image:: figures/cmap-CMRmap.png
+
+
+   * - cubehelix
+     - Unlike most other color schemes cubehelix was designed by D.A. Green to
+       be monotonically increasing in terms of perceived brightness. Also, when
+       printed on a black and white postscript printer, the scheme results in a
+       greyscale with monotonically increasing brightness. This color scheme is
+       named cubehelix because the r,g,b values produced can be visualised as a
+       squashed helix around the diagonal in the r,g,b color cube.
+     - .. image:: figures/cmap-cubehelix.png
+
+   * - gnuplot
+     - gnuplot's traditional pm3d scheme (black-blue-red-yellow)
+     - .. image:: figures/cmap-gnuplot.png
+
+   * - gnuplot2
+     - sequential color printable as gray (black-blue-violet-yellow-white)
+     - .. image:: figures/cmap-gnuplot2.png
+
+   * - ocean
+     - green-blue-white
+     - .. image:: figures/cmap-ocean.png
+
+   * - rainbow
+     - purple-blue-green-yellow-orange-red
+     - .. image:: figures/cmap-rainbow.png
+
+   * - seismic
+     - diverging blue-white-red
+     - .. image:: figures/cmap-seismic.png
+
+
+   * - terrain
+     - mapmaker's colors, blue-green-yellow-brown-white, originally from IGOR Pro
+     - .. image:: figures/cmap-terrain.png

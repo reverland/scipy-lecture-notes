@@ -1,29 +1,16 @@
-import numpy as np
-import matplotlib
-matplotlib.rcParams['toolbar'] = 'None'
-import matplotlib.pyplot as plt
+from pylab import *
 
-
-size = 48,16
+size = 256,16
 dpi = 72.0
 figsize= size[0]/float(dpi),size[1]/float(dpi)
-fig = plt.figure(figsize=figsize, dpi=dpi)
+fig = figure(figsize=figsize, dpi=dpi)
 fig.patch.set_alpha(0)
-plt.plot([0,1],[0,1], color='b', linewidth=.5)
-plt.plot([2,3],[0,1], color='b', linewidth=.5, antialiased=False)
-plt.xlim(-1,4)
+axes([0,0,1,1], frameon=False)
+
+rcParams['text.antialiased'] = True
+text(0.5,0.5,"Anti-aliased",ha='center',va='center')
+
+plt.xlim(0,1),plt.ylim(0,1),
 plt.xticks([]),plt.yticks([])
-fig.savefig('../figures/antialiased.png', dpi=dpi)
 
-size = 320,240
-dpi = 72.0
-figsize= size[0]/float(dpi),size[1]/float(dpi)
-fig = plt.figure(figsize=figsize, dpi=dpi)
-fig.patch.set_alpha(0)
-plt.plot([0,1],[0,1], color='b', linewidth=.5)
-plt.plot([2,3],[0,1], color='b', linewidth=.5, antialiased=False)
-plt.xlim(-1,4)
-plt.xticks([]),plt.yticks([])
-fig.savefig('../figures/antialiased-big.png', dpi=dpi)
-
-
+savefig('../figures/antialiased.png', dpi=dpi)

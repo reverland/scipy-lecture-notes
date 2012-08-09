@@ -16,34 +16,23 @@ for i in range(24):
     size = np.random.uniform(12,32)
     x,y = np.random.uniform(0,1,2)
     alpha = np.random.uniform(0.25,.75)
-    plt.text(x, y, eq, ha='center', va='center', color="#11557c", alpha=alpha,
-             transform=gca().transAxes, fontsize=size, clip_on=True)
+    text(x, y, eq, ha='center', va='center', color="#11557c", alpha=alpha,
+         transform=gca().transAxes, fontsize=size, clip_on=True)
 
-plt.text(-0.05, 1.05, " Text \n\n",
-          horizontalalignment='left',
-          verticalalignment='top',
-          family='Lint McCree Intl BB',
-          size='x-large',
-          bbox=dict(facecolor='white', alpha=1.0, width=350,height=60),
-          transform = gca().transAxes)
+text(-0.05, 1.05, " Text \n\n",
+      horizontalalignment='left',
+      verticalalignment='top',
+      family='Lint McCree Intl BB',
+      size='x-large',
+      bbox=dict(facecolor='white', alpha=1.0, width=350,height=60),
+      transform = gca().transAxes)
 
-plt.text(-0.05, .975, " Draw any kind of text ",
-          horizontalalignment='left',
-          verticalalignment='top',
-          family='Lint McCree Intl BB',
-          size='medium',
-          transform = gca().transAxes)
-
-
-
-# plt.text(-0.05, 1.05, " Text \n\n",
-#           horizontalalignment='left',
-#           verticalalignment='top',
-#           family='Lint McCree Intl BB',
-#           size='x-large',
-#           bbox=dict(facecolor='white', alpha=1.0, width=350,height=60),
-#           transform = gca().transAxes)
-
+text(-0.05, .975, " Draw any kind of text ",
+      horizontalalignment='left',
+      verticalalignment='top',
+      family='Lint McCree Intl BB',
+      size='medium',
+      transform = gca().transAxes)
 
 plt.savefig('../figures/text.png', dpi=64)
 

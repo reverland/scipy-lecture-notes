@@ -16,4 +16,5 @@ axes.grid(which='minor', axis='y', linewidth=0.25, linestyle='-', color='0.75')
 axes.set_xticklabels([])
 axes.set_yticklabels([])
 
+# savefig('../figures/grid_ex.png',dpi=64)
 show()

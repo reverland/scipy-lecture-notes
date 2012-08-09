@@ -1,6 +1,5 @@
 from pylab import *
 
-
 plt.subplot(111,polar=True)
 
 N = 20
@@ -21,7 +20,7 @@ text(-0.2, 1.05, " Polar Axis \n\n",
       size='x-large',
       bbox=dict(facecolor='white', alpha=1.0, width=350,height=60),
       transform = gca().transAxes)
-text(-0.15, .975, " Plot anything using polar axis ",
+text(-0.2, .975, " Plot anything using polar axis ",
       horizontalalignment='left',
       verticalalignment='top',
       family='Lint McCree Intl BB',

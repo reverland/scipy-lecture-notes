@@ -11,4 +11,6 @@ quiver(X,Y,U,V, edgecolor='k', facecolor='None', linewidth=.5)
 
 xlim(-1,n), xticks([])
 ylim(-1,n), yticks([])
+
+# savefig('../figures/quiver_ex.png',dpi=64)
 show()

@@ -1,31 +1,15 @@
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+from pylab import *
 
-size = 48,16
+size = 512,16
 dpi = 72.0
 figsize= size[0]/float(dpi),size[1]/float(dpi)
-fig = plt.figure(figsize=figsize, dpi=dpi)
+fig = figure(figsize=figsize, dpi=dpi)
 fig.patch.set_alpha(0)
-for i in range(1,11):
-    plt.plot([i,],[1,],'o', markersize=i/3., markerfacecolor='w',
-             markeredgewidth=.5,  markeredgecolor='k')
-plt.xlim(0,11)
-plt.xticks([]),plt.yticks([])
-fig.savefig('../figures/ms.png', dpi=dpi)
+axes([0,0,1,1], frameon=False)
 
-
-size = 640,480
-dpi = 100.0
-figsize= size[0]/float(dpi),size[1]/float(dpi)
-fig = plt.figure(figsize=figsize, dpi=dpi)
-fig.patch.set_alpha(0)
-for i in range(1,11):
-    plt.plot([i,],[1,],'o', markersize=i*3, markerfacecolor='w',
-             markeredgewidth=1,  markeredgecolor='k')
-plt.xlim(0,11)
-plt.xticks([]),plt.yticks([])
-fig.savefig('../figures/ms-big.png', dpi=dpi/2)
-
-
+for i in range(1,21):
+    plot([i,],[1,],'s', markersize=i/3., markerfacecolor='w',
+         markeredgewidth=.5,  markeredgecolor='k')
+xlim(0,21)
+xticks([]),yticks([])
+savefig('../figures/ms.png', dpi=dpi)

@@ -8,3 +8,6 @@ xticks([]), yticks([])
 
 plt.subplot(2,2,4)
 xticks([]), yticks([])
+
+#savefig('../figures/multiplot_ex.png',dpi=64)
+show()
