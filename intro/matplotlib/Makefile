@@ -4,7 +4,6 @@ RST2LATEX        = rst2latex.py
 STYLESHEET       = dana.css
 RST2HTML_OPTIONS = --strip-comments             \
                    --report=3                   \
-                   --no-toc-backlinks           \
 	               --stylesheet=$(STYLESHEET)   \
                    --link-stylesheet
 RST2LATEX_OPTIONS = --strip-comments            \
