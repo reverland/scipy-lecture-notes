@@ -1,6 +1,6 @@
 from pylab import *
 
-size = 256,16
+size = 128,16
 dpi = 72.0
 figsize= size[0]/float(dpi),size[1]/float(dpi)
 fig = figure(figsize=figsize, dpi=dpi)

@@ -1127,6 +1127,8 @@ technical.
 Quick references
 ================
 
+Here is a set of tables that show main properties and styles.
+
 Line properties
 ----------------
 
@@ -1159,6 +1161,22 @@ Line properties
      - float, the line width in points
      - .. image:: figures/linewidth.png
 
+   * - solid_capstyle
+     - Cap style for solid lines
+     - .. image:: figures/solid_capstyle.png
+
+   * - solid_joinstyle
+     - Join style for solid lines
+     - .. image:: figures/solid_joinstyle.png
+
+   * - dash_capstyle
+     - Cap style for dashes
+     - .. image:: figures/dash_capstyle.png
+
+   * - dash_joinstyle
+     - Join style for dashes
+     - .. image:: figures/dash_joinstyle.png
+
    * - marker
      - see below
      -
@@ -1185,7 +1203,7 @@ Line styles
 -----------
 
 .. list-table::
-   :widths: 10 20 50
+   :widths: 15 30 50
    :header-rows: 1
 
    * - Symbol
@@ -1291,6 +1309,147 @@ Line styles
    * - ``_``
      - horizontal line symbols
      - .. image:: figures/linestyle-_.png
+
+
+Markers
+-------
+
+
+.. list-table::
+   :widths: 15 30 50
+   :header-rows: 1
+
+   * - Symbol
+     - Description
+     - Appearance
+
+   * - 0
+     - Tick left
+     - .. image:: figures/marker-i0.png
+
+   * - 1
+     - Tick right
+     - .. image:: figures/marker-i1.png
+
+   * - 2
+     - Tick up
+     - .. image:: figures/marker-i2.png
+
+   * - 3
+     - Tick down
+     - .. image:: figures/marker-i3.png
+
+   * - 4
+     - Caret left
+     - .. image:: figures/marker-i4.png
+
+   * - 5
+     - Caret right
+     - .. image:: figures/marker-i5.png
+
+   * - 6
+     - Caret up
+     - .. image:: figures/marker-i6.png
+
+   * - 7
+     - Caret down
+     - .. image:: figures/marker-i7.png
+
+   * - ``o``
+     - Circle
+     - .. image:: figures/marker-o.png
+
+   * - ``D``
+     - Diamond
+     - .. image:: figures/marker-D.png
+
+   * - ``h``
+     - Hexagon 1
+     - .. image:: figures/marker-h.png
+
+   * - ``H``
+     - Hexagon 2
+     - .. image:: figures/marker-H.png
+
+   * - ``_``
+     - Horizontal line
+     - .. image:: figures/marker-_.png
+
+   * - ``1``
+     - Tripod down
+     - .. image:: figures/marker-1.png
+
+   * - ``2``
+     - Tripod up
+     - .. image:: figures/marker-2.png
+
+   * - ``3``
+     - Tripod left
+     - .. image:: figures/marker-3.png
+
+   * - ``4``
+     - Tripod right
+     - .. image:: figures/marker-4.png
+
+   * - ``8``
+     - Octagon
+     - .. image:: figures/marker-8.png
+
+   * - ``p``
+     - Pentagon
+     - .. image:: figures/marker-p.png
+
+   * - ``^``
+     - Triangle up
+     - .. image:: figures/marker-^.png
+
+   * - ``v``
+     - Triangle down
+     - .. image:: figures/marker-v.png
+
+   * - ``<``
+     - Triangle left
+     - .. image:: figures/marker-<.png
+
+   * - ``>``
+     - Triangle right
+     - .. image:: figures/marker->.png
+
+   * - ``d``
+     - Thin diamond
+     - .. image:: figures/marker-d.png
+
+   * - ``,``
+     - Pixel
+     - .. image:: figures/marker-,.png
+
+   * - ``+``
+     - Plus
+     - .. image:: figures/marker-+.png
+
+   * - ``.``
+     - Point
+     - .. image:: figures/marker-..png
+
+   * - ``s``
+     - Square
+     - .. image:: figures/marker-s.png
+
+   * - ``*``
+     - Star
+     - .. image:: figures/marker-*.png
+
+   * - ``|``
+     - Vertical line
+     - .. image:: figures/marker-|.png
+
+   * - ``x``
+     - Cross
+     - .. image:: figures/marker-x.png
+
+   * - ``r'$\sqrt{2}$'``
+     - Any latex expression
+     - .. image:: figures/marker-latex.png
 
 
 
