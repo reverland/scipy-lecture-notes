@@ -908,7 +908,7 @@ Starting from the code below, try to reproduce the graphic on the right.
 
    from pylab import *
 
-   axes([0,0,1,1)
+   axes([0,0,1,1])
 
    N = 20
    theta = np.arange(0.0, 2*np.pi, 2*np.pi/N)
