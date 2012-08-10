@@ -527,91 +527,48 @@ Tick Locators
 
 There are several locators for different kind of requirements:
 
-=============== ====================================================================
-Class           Description
-=============== ====================================================================
-NullLocator     No ticks.
 
-                .. image:: figures/ticks-NullLocator.png
+.. list-table::
+   :widths: 10 30 50
+   :header-rows: 1
 
-IndexLocator    Place a tick on every multiple of some base number of points plotted.
+   * - Class
+     - Description
+     - Appearance
 
-                .. image:: figures/ticks-IndexLocator.png
+   * - NullLocator
+     - No ticks.
+     - .. image:: figures/ticks-NullLocator.png
+     
+   * - IndexLocator
+     - Place a tick on every multiple of some base number of points plotted.
+     - .. image:: figures/ticks-IndexLocator.png
 
-FixedLocator    Tick locations are fixed.
+   * - FixedLocator
+     - Tick locations are fixed.
+     - .. image:: figures/ticks-FixedLocator.png
 
-                .. image:: figures/ticks-FixedLocator.png
+   * - LinearLocator
+     - Determine the tick locations.
+     - .. image:: figures/ticks-LinearLocator.png
 
-LinearLocator   Determine the tick locations.
+   * - MultipleLocator
+     - Set a tick on every integer that is multiple of some base.
+     - .. image:: figures/ticks-MultipleLocator.png
 
-                .. image:: figures/ticks-LinearLocator.png
+   * - AutoLocator
+     - Select no more than n intervals at nice locations.
+     - .. image:: figures/ticks-AutoLocator.png
 
-MultipleLocator Set a tick on every integer that is multiple of some base.
-
-                .. image:: figures/ticks-MultipleLocator.png
-
-AutoLocator     Select no more than n intervals at nice locations.
-
-                .. image:: figures/ticks-AutoLocator.png
-
-LogLocator      Determine the tick locations for log axes.
-
-                .. image:: figures/ticks-LogLocator.png
-
-=============== ====================================================================
-
+   * - LogLocator
+     - Determine the tick locations for log axes.
+     - .. image:: figures/ticks-LogLocator.png
 
 All of these locators derive from the base class matplotlib.ticker.Locator.
-You can make your own locator deriving from it.
+You can make your own locator deriving from it. Handling dates as ticks can be
+especially tricky. Therefore, matplotlib provides special locators in
+matplotlib.dates.
 
-Handling dates as ticks can be especially tricky. Therefore, matplotlib
-provides special locators in matplotlib.dates:
-
-======================= ===========================================
-Class                   Description
-======================= ===========================================
-MinuteLocator           locate minutes
-HourLocator             locate hours
-DayLocator              locate specified days of the month
-WeekdayLocator          locate days of the week, e.g. MO, TU
-MonthLocator            locate months, e.g. 10 for October
-YearLocator             locate years that are multiples of base
-RRuleLocator            locate using a matplotlib.dates.rrule
-======================= ===========================================
-
-
-Tick Formatters
-...............
-
-Similarly to locators, there are formatters:
-
-======================= =============================================
-Class                   Description
-======================= =============================================
-NullFormatter           no labels on the ticks
-FixedFormatter          set the strings manually for the labels
-FuncFormatter           user defined function sets the labels
-FormatStrFormatter      use a sprintf format string
-IndexFormatter          cycle through fixed strings by tick position
-ScalarFormatter         default formatter for scalars;
-                        autopick the fmt string
-LogFormatter            formatter for log axes
-DateFormatter           use an strftime string to format the date
-======================= =============================================
-
-All of these formatters derive from the base class matplotlib.ticker.Formatter.
-You can make your own formatter deriving from it.
-
-Now we set our major locator to 2 and the minor locator to 1. We also format
-the numbers as decimals using the FormatStrFormatter::
-
-    >>> major_locator = pl.MultipleLocator(2)
-    >>> major_formatter = pl.FormatStrFormatter('%5.2f')
-    >>> minor_locator = pl.MultipleLocator(1)
-    >>> ax.xaxis.set_major_locator(major_locator)
-    >>> ax.xaxis.set_minor_locator(minor_locator)
-    >>> ax.xaxis.set_major_formatter(major_formatter)
-    >>> pl.draw()
 
 
 
@@ -1457,158 +1414,103 @@ Markers
 Colormaps
 ---------
 
-From https://gist.github.com/2719900 by endolith:
+All colormaps can be reversed by appending ``_r``. For instance, ``gray_r`` is
+the reverse of ``gray``.
 
-  All colormaps can be reversed by appending ``_r``: For instance, ``gray_r`` is the reverse of ``gray``.
-
-  There are 3 common color schemes used in visualization:
-
-  1. Sequential schemes, for unipolar data that progresses from low to high
-
-  2. Diverging schemes, for bipolar data that emphasizes positive or negative
-     deviations from a central value
-
-  3. Qualitative schemes, which don't have a relationship to magnitude
+If you want to know more about colormaps, checks `Documenting the matplotlib
+colormaps <https://gist.github.com/2719900>`_.
 
 
-
-Base colormaps
-..............
+Base
+....
 
 .. list-table::
-   :widths: 10 30 50
+   :widths: 30 70
    :header-rows: 1
 
    * - Name
-     - Description
      - Appearance
 
    * - autumn
-     - sequential increasing shades of red-orange-yellow
      - .. image:: figures/cmap-autumn.png
 
    * - bone
-     - sequential black-white color map with a tinge of blue, to emulate X-ray
-       film
      - .. image:: figures/cmap-bone.png
 
    * - cool
-     - sequential decreasing shades of cyan-magenta
      - .. image:: figures/cmap-cool.png
 
-
    * - copper
-     - sequential increasing shades of black-copper
      - .. image:: figures/cmap-copper.png
 
    * - flag
-     - repeating red-white-blue-black pattern
      - .. image:: figures/cmap-flag.png
 
    * - gray
-     - simple sequential linearly-increasing black-to-white grayscale
      - .. image:: figures/cmap-gray.png
 
    * - hot
-     - sequential black-red-yellow-white, to emulate blackbody radiation from
-       an object at increasing temperatures
      - .. image:: figures/cmap-hot.png
 
    * - hsv
-     - red-yellow-green-cyan-blue-pink-magenta, formed by changing the hue
-       component in the HSV color space; meant to be used in plotting periodic
-       data (that is, in which the maximum magnitude and the minimum magnitude
-       are equivalent)
      - .. image:: figures/cmap-hsv.png
 
    * - jet
-     - blue-cyan-yellow-red, a variant of hsv; based on a fluid-jet simulation by NCSA
      - .. image:: figures/cmap-jet.png
 
    * - pink
-     - sequential increasing pastel black-pink-white, meant for sepia tone
-       colorization of photographs
      - .. image:: figures/cmap-pink.png
 
    * - prism
-     - repeating red-yellow-green-blue-purple-...-green pattern
      - .. image:: figures/cmap-prism.png
 
    * - spectral
-     - black-purple-blue-green-yellow-red-white spectrum
      - .. image:: figures/cmap-spectral.png
 
    * - spring
-     - shades of magenta-yellow
      - .. image:: figures/cmap-spring.png
 
    * - summer
-     - shades of green-yellow
      - .. image:: figures/cmap-summer.png
 
    * - winter
-     - shades of blue-green
      - .. image:: figures/cmap-winter.png
 
 
-GIST colormaps
-..............
+GIST
+....
 
 .. list-table::
-   :widths: 10 30 50
+   :widths: 30 70
    :header-rows: 1
 
    * - Name
-     - Description
      - Appearance
 
    * - gist_earth
-     - mapmaker's colors from dark blue deep ocean to green lowlands to brown
-       highlands to white mountains
      - .. image:: figures/cmap-gist_earth.png
 
    * - gist_gray
-     - simple sequential linearly-increasing black-to-white grayscale
      - .. image:: figures/cmap-gist_gray.png
 
    * - gist_heat
-     - sequential red-orange-yellow-white, to emulate blackbody radiation from
-       an iron bar as it grows hotter
      - .. image:: figures/cmap-gist_heat.png
 
    * - gist_ncar
-     - pseudo-spectral colormap from National Center for Atmospheric Research
      - .. image:: figures/cmap-gist_ncar.png
 
    * - gist_rainbow
-     - runs through the colors in spectral order at nearly constant intensity
      - .. image:: figures/cmap-gist_rainbow.png
 
    * - gist_stern
-     - "Stern special" color table from Interactive Data Language software
      - .. image:: figures/cmap-gist_stern.png
 
    * - gist_yarg
-     - gist_gray reversed (hende yarg)
      - .. image:: figures/cmap-gist_yarg.png
 
 
-ColorBrewer colormaps
-.....................
-
-The following 34 colormaps are based on the `ColorBrewer
-<http://colorbrewer2.org>`_ color specifications and designs developed by
-Cynthia Brewer:
-
-
-**Sequential**
-
-From `ColorBrewer <http://colorbrewer2.org>`_:
-
-  Sequential schemes are suited to ordered data that progress from low to
-  high. Lightness steps dominate the look of these schemes, with light colors for
-  low data values to dark colors for high data values.
-
+Sequential
+..........
 
 .. list-table::
    :widths: 30 70
@@ -1646,15 +1548,8 @@ From `ColorBrewer <http://colorbrewer2.org>`_:
 
 
 
-**Diverging**
-
-From `ColorBrewer <http://colorbrewer2.org>`_:
-
-  Diverging schemes put equal emphasis on mid-range critical values and
-  extremes at both ends of the data range. The critical class or break in the
-  middle of the legend is emphasized with light colors and low and high
-  extremes are emphasized with dark colors that have contrasting hues.
-
+Diverging
+.........
 
 .. list-table::
    :widths: 30 70
@@ -1718,14 +1613,8 @@ From `ColorBrewer <http://colorbrewer2.org>`_:
      - .. image:: figures/cmap-YlOrRd.png
 
 
-**Qualitative**
-
-From `ColorBrewer <http://colorbrewer2.org>`_:
-
-  Qualitative schemes do not imply magnitude differences between legend
-  classes, and hues are used to create the primary visual differences between
-  classes. Qualitative schemes are best suited to representing nominal or
-  categorical data.
+Qualitative
+...........
 
 .. list-table::
    :widths: 30 70
@@ -1760,79 +1649,53 @@ From `ColorBrewer <http://colorbrewer2.org>`_:
 
 
 
-Miscellaneous colormaps
-.......................
+Miscellaneous
+.............
 
 .. list-table::
-   :widths: 10 30 50
+   :widths: 30 70
    :header-rows: 1
 
    * - Name
-     - Description
      - Appearance
 
 
    * - afmhot
-     - sequential black-orange-yellow-white blackbody spectrum, commonly used
-       in atomic force microscopy
      - .. image:: figures/cmap-afmhot.png
 
 
    * - binary
-     - (identical to gray_r)
      - .. image:: figures/cmap-binary.png
 
    * - brg
-     - blue-red-green
      - .. image:: figures/cmap-brg.png
 
    * - bwr
-     - diverging blue-white-red
      - .. image:: figures/cmap-bwr.png
 
    * - coolwarm
-     - diverging blue-gray-red, meant to avoid issues with 3D shading, color
-       blindness, and ordering of colors
      - .. image:: figures/cmap-coolwarm.png
 
    * - CMRmap
-     - "Default colormaps on color images often reproduce to confusing
-       grayscale images. The proposed colormap maintains an aesthetically
-       pleasing color image that automatically reproduces to a monotonic
-       grayscale with discrete, quantifiable saturation levels."
      - .. image:: figures/cmap-CMRmap.png
 
-
    * - cubehelix
-     - Unlike most other color schemes cubehelix was designed by D.A. Green to
-       be monotonically increasing in terms of perceived brightness. Also, when
-       printed on a black and white postscript printer, the scheme results in a
-       greyscale with monotonically increasing brightness. This color scheme is
-       named cubehelix because the r,g,b values produced can be visualised as a
-       squashed helix around the diagonal in the r,g,b color cube.
      - .. image:: figures/cmap-cubehelix.png
 
    * - gnuplot
-     - gnuplot's traditional pm3d scheme (black-blue-red-yellow)
      - .. image:: figures/cmap-gnuplot.png
 
    * - gnuplot2
-     - sequential color printable as gray (black-blue-violet-yellow-white)
      - .. image:: figures/cmap-gnuplot2.png
 
    * - ocean
-     - green-blue-white
      - .. image:: figures/cmap-ocean.png
 
    * - rainbow
-     - purple-blue-green-yellow-orange-red
      - .. image:: figures/cmap-rainbow.png
 
    * - seismic
-     - diverging blue-white-red
      - .. image:: figures/cmap-seismic.png
 
-
    * - terrain
-     - mapmaker's colors, blue-green-yellow-brown-white, originally from IGOR Pro
      - .. image:: figures/cmap-terrain.png
