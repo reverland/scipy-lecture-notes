@@ -17,6 +17,10 @@ Sources are available from `here <matplotlib.rst>`_. Figures are in the `figures
 <figures/>`_ directory and all scripts are located in the `scripts <scripts/>`_
 directory.
 
+All code and material is licensed under a Creative Commons Attribution 3.0
+United States License (CC-by) http://creativecommons.org/licenses/by/3.0/us
+
+
 
 Introduction
 ============
@@ -93,14 +97,14 @@ or you can download each of the example and run it using regular python:
 Using defaults
 --------------
 
-.. image:: figures/exercice_1.png
-   :align: right
-   :target: scripts/exercice_1.py
-
 .. admonition:: Documentation
 
    * `plot tutorial <http://matplotlib.sourceforge.net/users/pyplot_tutorial.html>`_
    * `plot() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.plot>`_
+
+.. image:: figures/exercice_1.png
+   :align: right
+   :target: scripts/exercice_1.py
 
 Matplotlib comes with a set of default settings that allow to customize all
 kinds of properties. You can control the defaults of almost every property in
@@ -108,7 +112,6 @@ matplotlib: figure size and dpi, line width, color and style, axes, axis and
 grid properties, text and font properties and so on. While matplotlib defaults
 are rather good in most cases, you may want to modify some properties for
 specific cases.
-
 
 
 ::
@@ -130,14 +133,13 @@ specific cases.
 Instantiating defaults
 ----------------------
 
-.. image:: figures/exercice_2.png
-   :align: right
-   :target: scripts/exercice_2.py
-
 .. admonition:: Documentation
 
    *  `Customizing matplotlib <http://matplotlib.sourceforge.net/users/customizing.html>`_
 
+.. image:: figures/exercice_2.png
+   :align: right
+   :target: scripts/exercice_2.py
 
 In the script below, we've instantiated (and commented) all figure settings
 such that it shows what are the default settings that influence the
@@ -187,19 +189,19 @@ properties`_ and `Line styles`_ below).
 Changing colors and line widths
 --------------------------------
 
-.. image:: figures/exercice_3.png
-   :align: right
-   :target: scripts/exercice_3.py
-
 .. admonition:: Documentation
 
    * `Controlling line properties <http://matplotlib.sourceforge.net/users/pyplot_tutorial.html#controlling-line-properties>`_
    * `Line API <http://matplotlib.sourceforge.net/api/artist_api.html#matplotlib.lines.Line2D>`_
 
+.. image:: figures/exercice_3.png
+   :align: right
+   :target: scripts/exercice_3.py
 
 First step, we want to have the cosine in blue and the sine in red and a
 slighty thicker line for both of them. We'll also slightly alter the figure
 size to make it more horizontal.
+
 
 ::
 
@@ -214,15 +216,15 @@ size to make it more horizontal.
 Setting limits
 --------------
 
-.. image:: figures/exercice_4.png
-   :align: right
-   :target: scripts/exercice_4.py
-
 .. admonition:: Documentation
 
    * `xlim() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.xlim>`_
    * `ylim() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.ylim>`_
 
+
+.. image:: figures/exercice_4.png
+   :align: right
+   :target: scripts/exercice_4.py
 
 Current limits of the figure are a bit too tight and we want to make some space
 in order to clearly see all data points.
@@ -239,16 +241,17 @@ in order to clearly see all data points.
 Setting ticks
 -------------
 
-.. image:: figures/exercice_5.png
-   :align: right
-   :target: scripts/exercice_5.py
-
 .. admonition:: Documentation
 
    * `xticks() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.xticks>`_
    * `yticks() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.yticks>`_
    * `Tick container <http://matplotlib.sourceforge.net/users/artists.html#axis-container>`_
    * `Tick locating and formatting <http://matplotlib.sourceforge.net/api/ticker_api.html>`_
+
+
+.. image:: figures/exercice_5.png
+   :align: right
+   :target: scripts/exercice_5.py
 
 Current ticks are not so good because they do not show interesting values
 (+/-pi,+/-pi/2) for sine and cosine. We'll change them such that they show only
@@ -263,13 +266,8 @@ these values.
 
 
 
-
 Setting tick labels
 -------------------
-
-.. image:: figures/exercice_6.png
-   :align: right
-   :target: scripts/exercice_6.py
 
 .. admonition:: Documentation
 
@@ -279,33 +277,30 @@ Setting tick labels
    * `set_xticklabels() <http://matplotlib.sourceforge.net/api/axes_api.html?#matplotlib.axes.Axes.set_xticklabels>`_
    * `set_yticklabels() <http://matplotlib.sourceforge.net/api/axes_api.html?#matplotlib.axes.Axes.set_yticklabels>`_
 
+.. image:: figures/exercice_6.png
+   :align: right
+   :target: scripts/exercice_6.py
+
 Ticks are now properly placed but their label is not very explicit. We could
 guess that 3.142 is pi but it would be better to make it explicit. When we set
 ticks values, we can also provide a corresponding label in the second argument
 list. Note that we'll use latex to allow for nice rendering of the label.
 
+
 ::
 
    ...
-   xticks( [-np.pi,    -np.pi/2,    0,      np.pi/2,     np.pi],
-           [r'$-\pi$', r'$-\pi/2$', r'$0$', r'$+\pi/2$', r'$+\pi$'])
+   xticks([-np.pi, -np.pi/2, 0, np.pi/2, np.pi],
+          [r'$-\pi$', r'$-\pi/2$', r'$0$', r'$+\pi/2$', r'$+\pi$'])
 
-   yticks( [-1,  0,   +1],
-           [r'$-1$', r'$0$', r'$+1$'])
+   yticks([-1, 0, +1],
+          [r'$-1$', r'$0$', r'$+1$'])
    ...
-
-
-*Complete source*: `exercice_6.py <scripts/exercice_6.py>`_
-
 
 
 
 Moving spines
 -------------
-
-.. image:: figures/exercice_7.png
-   :align: right
-   :target: scripts/exercice_7.py
 
 .. admonition:: Documentation
 
@@ -313,13 +308,16 @@ Moving spines
    * `Axis container <http://matplotlib.sourceforge.net/users/artists.html#axis-container>`_
    * `Transformations tutorial <http://matplotlib.sourceforge.net/users/transforms_tutorial.html>`_
 
+.. image:: figures/exercice_7.png
+   :align: right
+   :target: scripts/exercice_7.py
+
 Spines are the lines connecting the axis tick marks and noting the boundaries
 of the data area. They can be placed at arbitrary positions and until now, they
 were on the border of the axis. We'll change that since we want to have them in
 the middle. Since there are four of them (top/bottom/left/right), we'll discard
 the top and right by setting their color to none and we'll move the bottom and
 left ones to coordinate 0 in data space coordinates.
-
 
 ::
 
@@ -338,10 +336,6 @@ left ones to coordinate 0 in data space coordinates.
 Adding a legend
 ---------------
 
-.. image:: figures/exercice_8.png
-   :align: right
-   :target: scripts/exercice_8.py
-
 
 .. admonition:: Documentation
 
@@ -349,6 +343,9 @@ Adding a legend
    * `legend() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.legend>`_
    * `Legend API <http://matplotlib.sourceforge.net/api/legend_api.html#matplotlib.legend.Legend>`_
 
+.. image:: figures/exercice_8.png
+   :align: right
+   :target: scripts/exercice_8.py
 
 Let's add a legend in the upper left corner. This only requires to give each
 plot a label that will be used in the legend box.
@@ -358,7 +355,7 @@ plot a label that will be used in the legend box.
 
    ...
    plot(X, C, color="blue", linewidth=2.5, linestyle="-", label="cosine")
-   plot(X, S, color="red", linewidth=2.5, linestyle="-",  label="sine")
+   plot(X, S, color="red",  linewidth=2.5, linestyle="-", label="sine")
 
    legend(loc='upper left')
    ...
@@ -368,20 +365,20 @@ plot a label that will be used in the legend box.
 Annotate some points
 --------------------
 
-.. image:: figures/exercice_9.png
-   :align: right
-   :target: scripts/exercice_9.py
-
 .. admonition:: Documentation
 
    * `Annotating axis <http://matplotlib.sourceforge.net/users/annotations_guide.html>`_
    * `annotate() command <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.annotate>`_
 
+.. image:: figures/exercice_9.png
+   :align: right
+   :target: scripts/exercice_9.py
 
 Let's annotate some interesting point using the annotate command. We chose then
 2pi/3 angle and we want to annotate both the sine and the cosine. We'll first
 draw a marker on the curve as well as a straight dotted line. Then, we'll use
 the annotate command to display some text with an arrow.
+
 
 ::
 
@@ -391,14 +388,16 @@ the annotate command to display some text with an arrow.
    plot([t,t],[0,np.cos(t)], color ='blue', linewidth=2.5, linestyle="--")
    scatter([t,],[np.cos(t),], 50, color ='blue')
 
-   annotate(r'$sin(\frac{2\pi}{3})=-\frac{\sqrt{3}}{2}$', xy=(t, np.sin(t)),  xycoords='data',
+   annotate(r'$sin(\frac{2\pi}{3})=-\frac{\sqrt{3}}{2}$',
+            xy=(t, np.sin(t)), xycoords='data',
             xytext=(+10, +30), textcoords='offset points', fontsize=16,
             arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))
 
    plot([t,t],[0,np.sin(t)], color ='red', linewidth=2.5, linestyle="--")
    scatter([t,],[np.sin(t),], 50, color ='red')
 
-   annotate(r'$cos(\frac{2\pi}{3})=-\frac{1}{2}$', xy=(t, np.cos(t)),  xycoords='data',
+   annotate(r'$cos(\frac{2\pi}{3})=-\frac{1}{2}$',
+            xy=(t, np.cos(t)), xycoords='data',
             xytext=(-90, -50), textcoords='offset points', fontsize=16,
             arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))
    ...
@@ -408,21 +407,20 @@ the annotate command to display some text with an arrow.
 Devil is in the details
 ------------------------
 
-.. image:: figures/exercice_10.png
-   :align: right
-   :target: scripts/exercice_10.py
-
 .. admonition:: Documentation
 
    * `Artists <http://matplotlib.sourceforge.net/api/artist_api.html>`_
    * `BBox <http://matplotlib.sourceforge.net/api/artist_api.html#matplotlib.text.Text.set_bbox>`_
 
-
+.. image:: figures/exercice_10.png
+   :align: right
+   :target: scripts/exercice_10.py
 
 Tick labels are now hardly visible because of the blue and red lines. We can
 make them bigger and we can also adjust their properties such that they'll be
 rendered on a semi-transparent white background. This will allow us to see both
 the data and the labels.
+
 
 ::
 
@@ -583,7 +581,6 @@ matplotlib.dates.
 
 Other Types of Plots
 ====================
-
 
 .. image:: figures/plot.png
    :target: `Regular Plots`_
@@ -1117,7 +1114,7 @@ Line properties
 ----------------
 
 .. list-table::
-   :widths: 15 30 50
+   :widths: 20 30 50
    :header-rows: 1
 
    * - Property
@@ -1165,19 +1162,19 @@ Line properties
      - see `Markers`_
      -
 
-   * - markeredgewidth (or mew)
+   * - markeredgewidth (mew)
      - line width around the marker symbol
      - .. image:: figures/mew.png
 
-   * - markeredgecolor (or mec)
+   * - markeredgecolor (mec)
      - edge color if a marker is used
      - .. image:: figures/mec.png
 
-   * - markerfacecolor (or mfc)
+   * - markerfacecolor (mfc)
      - face color if a marker is used
      - .. image:: figures/mfc.png
 
-   * - markersize (or ms)
+   * - markersize (ms)
      - size of the marker in points
      - .. image:: figures/ms.png
 

@@ -77,7 +77,6 @@ h2.subtitle {
 
 p {
     margin-bottom: 1em;
-    max-width: 75%;
 }
 
 strong {
@@ -193,6 +192,12 @@ pre {
     background-color: #ffffff;
     font-family: monospace;
     margin-bottom: 1em;
+
+    whitewhite-space: pre-wrap;       /* css-3 */  
+    whitewhite-space: -pre-wrap;      /* Opera 4-6 */  
+    whitewhite-space: -o-pre-wrap;    /* Opera 7 */  
+    word-wrap: break-word;       /* Internet Explorer 5+ */  
+    whitewhite-space: -moz-pre-wrap;  /* Older Versions of Mozilla */ 
 }
 
 
