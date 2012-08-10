@@ -13,7 +13,7 @@ This tutorial is based on Mike Müller `tutorial
 <http://scipy-lectures.github.com/intro/matplotlib/matplotlib.html>`_ available
 from the `scipy lecture notes <http://scipy-lectures.github.com>`_.
 
-Sources are available from `here <matplolib.rst>`_. Figures are in the `figures
+Sources are available from `here <matplotlib.rst>`_. Figures are in the `figures
 <figures/>`_ directory and all scripts are located in the `scripts <scripts/>`_
 directory.
 
@@ -95,6 +95,7 @@ Using defaults
 
 .. image:: figures/exercice_1.png
    :align: right
+   :target: scripts/exercice_1.py
 
 .. admonition:: Documentation
 
@@ -131,7 +132,7 @@ Instantiating defaults
 
 .. image:: figures/exercice_2.png
    :align: right
-
+   :target: scripts/exercice_2.py
 
 .. admonition:: Documentation
 
@@ -188,6 +189,7 @@ Changing colors and line widths
 
 .. image:: figures/exercice_3.png
    :align: right
+   :target: scripts/exercice_3.py
 
 .. admonition:: Documentation
 
@@ -207,7 +209,6 @@ size to make it more horizontal.
    plot(X, S, color="red",  linewidth=2.5, linestyle="-")
    ...
 
-*Complete source*: `exercice_3.py <scripts/exercice_3.py>`_
 
 
 Setting limits
@@ -215,6 +216,7 @@ Setting limits
 
 .. image:: figures/exercice_4.png
    :align: right
+   :target: scripts/exercice_4.py
 
 .. admonition:: Documentation
 
@@ -232,8 +234,6 @@ in order to clearly see all data points.
    ylim(C.min()*1.1, C.max()*1.1)
    ...
 
-*Complete source*: `exercice_4.py <scripts/exercice_4.py>`_
-
 
 
 Setting ticks
@@ -241,6 +241,7 @@ Setting ticks
 
 .. image:: figures/exercice_5.png
    :align: right
+   :target: scripts/exercice_5.py
 
 .. admonition:: Documentation
 
@@ -260,7 +261,6 @@ these values.
    yticks([-1, 0, +1])
    ...
 
-*Complete source*: `exercice_5.py <scripts/exercice_5.py>`_
 
 
 
@@ -269,6 +269,7 @@ Setting tick labels
 
 .. image:: figures/exercice_6.png
    :align: right
+   :target: scripts/exercice_6.py
 
 .. admonition:: Documentation
 
@@ -304,6 +305,7 @@ Moving spines
 
 .. image:: figures/exercice_7.png
    :align: right
+   :target: scripts/exercice_7.py
 
 .. admonition:: Documentation
 
@@ -331,10 +333,6 @@ left ones to coordinate 0 in data space coordinates.
    ax.spines['left'].set_position(('data',0))
    ...
 
-*Complete source*: `exercice_7.py <scripts/exercice_7.py>`_
-
-
-
 
 
 Adding a legend
@@ -342,6 +340,7 @@ Adding a legend
 
 .. image:: figures/exercice_8.png
    :align: right
+   :target: scripts/exercice_8.py
 
 
 .. admonition:: Documentation
@@ -364,9 +363,6 @@ plot a label that will be used in the legend box.
    legend(loc='upper left')
    ...
 
-*Complete source*: `exercice_8.py <scripts/exercice_8.py>`_
-
-
 
 
 Annotate some points
@@ -374,6 +370,7 @@ Annotate some points
 
 .. image:: figures/exercice_9.png
    :align: right
+   :target: scripts/exercice_9.py
 
 .. admonition:: Documentation
 
@@ -407,15 +404,13 @@ the annotate command to display some text with an arrow.
    ...
 
 
-*Complete source*: `exercice_9.py <scripts/exercice_9.py>`_
-
-
 
 Devil is in the details
 ------------------------
 
 .. image:: figures/exercice_10.png
    :align: right
+   :target: scripts/exercice_10.py
 
 .. admonition:: Documentation
 
@@ -436,9 +431,6 @@ the data and the labels.
        label.set_fontsize(16)
        label.set_bbox(dict(facecolor='white', edgecolor='None', alpha=0.65 ))
    ...
-
-
-*Complete source*: `exercice_10.py <scripts/exercice_10.py>`_
 
 
 
