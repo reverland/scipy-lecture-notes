@@ -88,11 +88,11 @@ This brings us to the IPython prompt:
     For more information, type 'help(pylab)'.
 
 
-or you can download each of the example and run it using regular python:
+or you can download each of the example and run it using regular python::
 
     $ python exercice_1.py
 
-You can get sources for each step by clicking on the corresponding figure.
+You can get source for each step by clicking on the corresponding figure.
 
 
 Using defaults
