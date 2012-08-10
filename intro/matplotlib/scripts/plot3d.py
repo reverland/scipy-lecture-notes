@@ -1,17 +1,21 @@
 from pylab import *
-from mpl_toolkits.mplot3d import axes3d
+from mpl_toolkits.mplot3d import Axes3D
 
+fig = figure()
+ax = Axes3D(fig)
+X = np.arange(-4, 4, 0.25)
+Y = np.arange(-4, 4, 0.25)
+X, Y = np.meshgrid(X, Y)
+R = np.sqrt(X**2 + Y**2)
+Z = np.sin(R)
 
-
-ax = gca(projection='3d')
-X, Y, Z = axes3d.get_test_data(0.05)
-cset = ax.contourf(X, Y, Z)
-ax.clabel(cset, fontsize=9, inline=1)
-
+ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap='hot')
+ax.contourf(X, Y, Z, zdir='z', offset=-2, cmap='hot')
+ax.set_zlim(-2,2)
 plt.xticks([]), plt.yticks([]), 
 ax.set_zticks([])
 
-ax.text2D(-0.05, 1.05, " 3D plots \n\n",
+ax.text2D(0.05, .95, " 3D plots \n\n",
           horizontalalignment='left',
           verticalalignment='top',
           family='Lint McCree Intl BB',
@@ -19,7 +23,7 @@ ax.text2D(-0.05, 1.05, " 3D plots \n\n",
           bbox=dict(facecolor='white', alpha=1.0, width=350,height=60),
           transform = gca().transAxes)
 
-ax.text2D(-0.05, .975, " Plot 2D or 3D data",
+ax.text2D(0.05, .89, " Plot 2D or 3D data",
           horizontalalignment='left',
           verticalalignment='top',
           family='Lint McCree Intl BB',

@@ -5,7 +5,6 @@ STYLESHEET       = dana.css
 RST2HTML_OPTIONS = --strip-comments             \
                    --report=3                   \
                    --no-toc-backlinks           \
-				   --template=page.tmpl         \
 	               --stylesheet=$(STYLESHEET)   \
                    --link-stylesheet
 RST2LATEX_OPTIONS = --strip-comments            \
