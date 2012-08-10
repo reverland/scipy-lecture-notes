@@ -937,7 +937,7 @@ Click on figure for solution.
    <http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.contourf>`_
 
 
-Starting from the code below, try to remove reproduce the graphic on the right.
+Starting from the code below, try to reproduce the graphic on the right.
 
 ::
 
