@@ -92,6 +92,7 @@ or you can download each of the example and run it using regular python:
 
     $ python exercice_1.py
 
+You can get sources for each step by clicking on the corresponding figure.
 
 
 Using defaults
@@ -152,7 +153,7 @@ properties`_ and `Line styles`_ below).
    # Import everything from matplotlib (numpy is accessible via 'np' alias)
    from pylab import *
 
-   # Create a new figure of size 8x6 points, using 100 dots per inch
+   # Create a new figure of size 8x6 points, using 80 dots per inch
    figure(figsize=(8,6), dpi=80)
 
    # Create a new subplot from a grid of 1x1
@@ -1089,7 +1090,7 @@ Galleries
 ---------
 
 The `matplotlib gallery <http://matplotlib.sourceforge.net/gallery.html>`_ is
-also incredibly useful when you search how to render a given graphics. Each
+also incredibly useful when you search how to render a given graphic. Each
 example comes with its source.
 
 A smaller gallery is also available `here <http://www.loria.fr/~rougier/coding/gallery/>`_.
