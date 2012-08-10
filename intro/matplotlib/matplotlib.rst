@@ -1571,7 +1571,7 @@ Sequential
      - .. image:: figures/cmap-RdYlGn.png
 
    * - Spectral
-     - .. image:: figures/cmap-Spectral.png
+     - .. image:: figures/cmap-spectral-2.png
 
 
 
