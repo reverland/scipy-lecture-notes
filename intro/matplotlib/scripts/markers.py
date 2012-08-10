@@ -23,8 +23,8 @@ def marker(m,name):
 #     - Description
 #     - Appearance
 #"""
-for m in [0,1,2,3,4,5,6,7,'o','D','h','H','_','1','2','3','4','8','p',
-           '^','v','<','>','|','d',',','+','.','s','*','|','x']:
+for m in [0,1,2,3,4,5,6,7,'o','h','_','1','2','3','4','8','p',
+           '^','v','<','>','|','d',',','+','s','*','|','x']:
     if type(m) is int:
         marker(m, 'i%d' % m)
         #print "   * - %d" % m
@@ -36,6 +36,9 @@ for m in [0,1,2,3,4,5,6,7,'o','D','h','H','_','1','2','3','4','8','p',
         #print "     - "
         #print "     - .. image:: figures/marker-%s.png" % m
 
+marker('D', 'dd')
+marker('H', 'hh')
+marker('.', 'dot')
 marker(r"$\sqrt{2}$", "latex")
 #print "   * - ``r'$\sqrt{2}$'``"
 #print "     - "

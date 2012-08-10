@@ -1204,7 +1204,7 @@ Line styles
 
    * - ``-.``
      - dash-dot line
-     - .. image:: figures/linestyle--..png
+     - .. image:: figures/linestyle--dot.png
 
    * - ``:``
      - dotted line
@@ -1212,86 +1212,86 @@ Line styles
 
    * - ``.``
      - points
-     - .. image:: figures/linestyle-..png
+     - .. image:: figures/linestyle-dot.png
 
    * - ``,``
      - pixels
      - .. image:: figures/linestyle-,.png
      
    * - ``o``
-     - circle symbols
+     - circle
      - .. image:: figures/linestyle-o.png
 
    * - ``^``
-     - triangle up symbols
+     - triangle up
      - .. image:: figures/linestyle-^.png
 
    * - ``v``
-     - triangle down symbols
+     - triangle down
      - .. image:: figures/linestyle-v.png
 
    * - ``<``
-     - triangle left symbols
+     - triangle left
      - .. image:: figures/linestyle-<.png
 
    * - ``>``
-     - triangle right symbols
+     - triangle right
      - .. image:: figures/linestyle->.png
 
    * - ``s``
-     - square symbols
+     - square
      - .. image:: figures/linestyle-s.png
 
    * - ``+``
-     - plus symbols
+     - plus
      - .. image:: figures/linestyle-+.png
 
    * - ``x``
-     -  cross symbols
+     -  cross
      - .. image:: figures/linestyle-x.png
 
    * - ``D``
-     - diamond symbols
-     - .. image:: figures/linestyle-D.png
+     - diamond
+     - .. image:: figures/linestyle-dd.png
 
    * - ``d``
-     - thin diamond symbols
+     - thin diamond
      - .. image:: figures/linestyle-d.png
 
    * - ``1``
-     - tripod down symbols
+     - tripod down
      - .. image:: figures/linestyle-1.png
 
    * - ``2``
-     - tripod up symbols
+     - tripod up
      - .. image:: figures/linestyle-2.png
 
    * - ``3``
-     - tripod left symbols
+     - tripod left
      - .. image:: figures/linestyle-3.png
 
    * - ``4``
-     - tripod right symbols
+     - tripod right
      - .. image:: figures/linestyle-4.png
 
    * - ``h``
-     - hexagon symbols
+     - hexagon
      - .. image:: figures/linestyle-h.png
 
    * - ``H``
-     - rotated hexagon symbols
-     - .. image:: figures/linestyle-H.png
+     - rotated hexagon
+     - .. image:: figures/linestyle-hh.png
 
    * - ``p``
-     -  pentagon symbols
+     -  pentagon
      - .. image:: figures/linestyle-p.png
 
    * - ``|``
-     - vertical line symbols
+     - vertical line
      - .. image:: figures/linestyle-|.png
 
    * - ``_``
-     - horizontal line symbols
+     - horizontal line
      - .. image:: figures/linestyle-_.png
 
 
@@ -1308,131 +1308,131 @@ Markers
      - Appearance
 
    * - 0
-     - Tick left
+     - tick left
      - .. image:: figures/marker-i0.png
 
    * - 1
-     - Tick right
+     - tick right
      - .. image:: figures/marker-i1.png
 
    * - 2
-     - Tick up
+     - tick up
      - .. image:: figures/marker-i2.png
 
    * - 3
-     - Tick down
+     - tick down
      - .. image:: figures/marker-i3.png
 
    * - 4
-     - Caret left
+     - caret left
      - .. image:: figures/marker-i4.png
 
    * - 5
-     - Caret right
+     - caret right
      - .. image:: figures/marker-i5.png
 
    * - 6
-     - Caret up
+     - caret up
      - .. image:: figures/marker-i6.png
 
    * - 7
-     - Caret down
+     - caret down
      - .. image:: figures/marker-i7.png
 
    * - ``o``
-     - Circle
+     - circle
      - .. image:: figures/marker-o.png
 
    * - ``D``
-     - Diamond
-     - .. image:: figures/marker-D.png
+     - diamond
+     - .. image:: figures/marker-dd.png
 
    * - ``h``
-     - Hexagon 1
+     - hexagon 1
      - .. image:: figures/marker-h.png
 
    * - ``H``
-     - Hexagon 2
-     - .. image:: figures/marker-H.png
+     - hexagon 2
+     - .. image:: figures/marker-hh.png
 
    * - ``_``
-     - Horizontal line
+     - horizontal line
      - .. image:: figures/marker-_.png
 
    * - ``1``
-     - Tripod down
+     - tripod down
      - .. image:: figures/marker-1.png
 
    * - ``2``
-     - Tripod up
+     - tripod up
      - .. image:: figures/marker-2.png
 
    * - ``3``
-     - Tripod left
+     - tripod left
      - .. image:: figures/marker-3.png
 
    * - ``4``
-     - Tripod right
+     - tripod right
      - .. image:: figures/marker-4.png
 
    * - ``8``
-     - Octagon
+     - octagon
      - .. image:: figures/marker-8.png
 
    * - ``p``
-     - Pentagon
+     - pentagon
      - .. image:: figures/marker-p.png
 
    * - ``^``
-     - Triangle up
+     - triangle up
      - .. image:: figures/marker-^.png
 
    * - ``v``
-     - Triangle down
+     - triangle down
      - .. image:: figures/marker-v.png
 
    * - ``<``
-     - Triangle left
+     - triangle left
      - .. image:: figures/marker-<.png
 
    * - ``>``
-     - Triangle right
+     - triangle right
      - .. image:: figures/marker->.png
 
    * - ``d``
-     - Thin diamond
+     - thin diamond
      - .. image:: figures/marker-d.png
 
    * - ``,``
-     - Pixel
+     - pixel
      - .. image:: figures/marker-,.png
 
    * - ``+``
-     - Plus
+     - plus
      - .. image:: figures/marker-+.png
 
    * - ``.``
-     - Point
-     - .. image:: figures/marker-..png
+     - point
+     - .. image:: figures/marker-dot.png
 
    * - ``s``
-     - Square
+     - square
      - .. image:: figures/marker-s.png
 
    * - ``*``
-     - Star
+     - star
      - .. image:: figures/marker-*.png
 
    * - ``|``
-     - Vertical line
+     - vertical line
      - .. image:: figures/marker-|.png
 
    * - ``x``
-     - Cross
+     - cross
      - .. image:: figures/marker-x.png
 
    * - ``r'$\sqrt{2}$'``
-     - Any latex expression
+     - any latex expression
      - .. image:: figures/marker-latex.png
 
 
