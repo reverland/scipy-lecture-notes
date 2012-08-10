@@ -721,6 +721,7 @@ Contour Plots
 
 .. image:: figures/contour_ex.png
    :align: right
+   :target: scripts/contour_ex.py
 
 .. admonition:: Hints
 
