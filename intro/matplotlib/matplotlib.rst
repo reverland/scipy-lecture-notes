@@ -9,17 +9,18 @@ Nicolas P. Rougier - Euroscipy 2012
    :local:
    :depth: 2
 
-This tutorial is based on Mike Müller `tutorial
+This tutorial is based on Mike Müller's `tutorial
 <http://scipy-lectures.github.com/intro/matplotlib/matplotlib.html>`_ available
 from the `scipy lecture notes <http://scipy-lectures.github.com>`_.
 
-Sources are available from `here <matplotlib.rst>`_. Figures are in the `figures
+Sources are available `here <matplotlib.rst>`_. Figures are in the `figures
 <figures/>`_ directory and all scripts are located in the `scripts <scripts/>`_
 directory.
 
 All code and material is licensed under a Creative Commons Attribution 3.0
 United States License (CC-by) http://creativecommons.org/licenses/by/3.0/us
 
+Many thanks to **Bill Wing** for review and corrections.
 
 
 Introduction
@@ -37,14 +38,14 @@ IPython and the pylab mode
 has lots of interesting features including named inputs and outputs, access to
 shell commands, improved debugging and many more. When we start it with the
 command line argument -pylab (--pylab since IPython version 0.12), it allows
-interactive matplotlib sessions that has Matlab/Mathematica-like functionality.
+interactive matplotlib sessions that have Matlab/Mathematica-like functionality.
 
 pylab
 -----
 
 pylab provides a procedural interface to the matplotlib object-oriented
 plotting library. It is modeled closely after Matlab(TM). Therefore, the
-majority of plotting commands in pylab has Matlab(TM) analogs with similar
+majority of plotting commands in pylab have Matlab(TM) analogs with similar
 arguments.  Important commands are explained with interactive examples.
 
 
@@ -70,7 +71,7 @@ First step is to get the data for the sine and cosine functions:
 X is now a numpy array with 256 values ranging from -pi to +pi (included). C is
 the cosine (256 values) and S is the sine (256 values).
 
-For running example, you can type them in an IPython interactive session
+To run the example, you can type them in an IPython interactive session
 
     $ ipython -pylab
 
@@ -88,7 +89,7 @@ This brings us to the IPython prompt:
     For more information, type 'help(pylab)'.
 
 
-or you can download each of the example and run it using regular python::
+or you can download each of the examples and run it using regular python::
 
     $ python exercice_1.py
 
@@ -107,7 +108,7 @@ Using defaults
    :align: right
    :target: scripts/exercice_1.py
 
-Matplotlib comes with a set of default settings that allow to customize all
+Matplotlib comes with a set of default settings that allow customizing all
 kinds of properties. You can control the defaults of almost every property in
 matplotlib: figure size and dpi, line width, color and style, axes, axis and
 grid properties, text and font properties and so on. While matplotlib defaults
@@ -142,11 +143,11 @@ Instantiating defaults
    :align: right
    :target: scripts/exercice_2.py
 
-In the script below, we've instantiated (and commented) all figure settings
-such that it shows what are the default settings that influence the
-rendering. We obtain the exact same figure but now you can play with the
-different parameters to explore how they affect rendering (see `Line
-properties`_ and `Line styles`_ below).
+
+In the script below, we've instantiated (and commented) all the figure settings
+that influence the appearance of the plot. The settings have been explicitly
+set to their default values, but now you can interactively play with the values
+to explore their affect (see `Line properties`_ and `Line styles`_ below).
 
 ::
 
@@ -254,7 +255,7 @@ Setting ticks
    :align: right
    :target: scripts/exercice_5.py
 
-Current ticks are not so good because they do not show interesting values
+Current ticks are not ideal because they do not show the interesting values
 (+/-pi,+/-pi/2) for sine and cosine. We'll change them such that they show only
 these values.
 
@@ -284,7 +285,7 @@ Setting tick labels
 
 Ticks are now properly placed but their label is not very explicit. We could
 guess that 3.142 is pi but it would be better to make it explicit. When we set
-ticks values, we can also provide a corresponding label in the second argument
+tick values, we can also provide a corresponding label in the second argument
 list. Note that we'll use latex to allow for nice rendering of the label.
 
 
@@ -348,8 +349,9 @@ Adding a legend
    :align: right
    :target: scripts/exercice_8.py
 
-Let's add a legend in the upper left corner. This only requires to give each
-plot a label that will be used in the legend box.
+Let's add a legend in the upper left corner. This only requires adding the
+keyword argument label (that will be used in the legend box) to the plot
+commands.
 
 
 ::
@@ -375,8 +377,8 @@ Annotate some points
    :align: right
    :target: scripts/exercice_9.py
 
-Let's annotate some interesting point using the annotate command. We chose then
-2pi/3 angle and we want to annotate both the sine and the cosine. We'll first
+Let's annotate some interesting points using the annotate command. We chose the
+2π/3 value and we want to annotate both the sine and the cosine. We'll first
 draw a marker on the curve as well as a straight dotted line. Then, we'll use
 the annotate command to display some text with an arrow.
 
@@ -417,7 +419,7 @@ Devil is in the details
    :align: right
    :target: scripts/exercice_10.py
 
-Tick labels are now hardly visible because of the blue and red lines. We can
+The tick labels are now hardly visible because of the blue and red lines. We can
 make them bigger and we can also adjust their properties such that they'll be
 rendered on a semi-transparent white background. This will allow us to see both
 the data and the labels.
@@ -437,16 +439,16 @@ the data and the labels.
 Figures, Subplots, Axes and Ticks
 =================================
 
-So far we have used implicit figure and axes creation.  This is handy for fast
+So far we have used implicit figure and axes creation. This is handy for fast
 plots. We can have more control over the display using figure, subplot, and
 axes explicitly. A figure in matplotlib means the whole window in the user
 interface. Within this figure there can be subplots. While subplot positions
 the plots in a regular grid, axes allows free placement within the figure. Both
-can be useful depending on your intention. We've already work with figures and
-subplots without explicitly calling them. When we call plot matplotlib calls
-gca() to get the current axes and gca in turn calls gcf() to get the current
-figure. If there is none it calls figure() to make one, strictly speaking, to
-make a subplot(111). Let's look at the details.
+can be useful depending on your intention. We've already worked with figures
+and subplots without explicitly calling them. When we call plot, matplotlib
+calls gca() to get the current axes and gca in turn calls gcf() to get the
+current figure. If there is none it calls figure() to make one, strictly
+speaking, to make a subplot(111). Let's look at the details.
 
 Figures
 -------
@@ -454,7 +456,7 @@ Figures
 A figure is the windows in the GUI that has "Figure #" as title. Figures
 are numbered starting from 1 as opposed to the normal Python way starting
 from 0. This is clearly MATLAB-style.  There are several parameters that
-determine how the figure looks like:
+determine what the figure looks like:
 
 ==============  ======================= ============================================
 Argument        Default                 Description
@@ -483,7 +485,7 @@ set_something methods.
 Subplots
 --------
 
-With subplot you can arrange plots in regular grid. You need to specify the
+With subplot you can arrange plots in a regular grid. You need to specify the
 number of rows and columns and the number of the plot. Note that the `gridspec
 <http://matplotlib.sourceforge.net/users/gridspec.html>`_ command is a more
 powerful alternative.
@@ -517,8 +519,8 @@ Ticks
 
 Well formatted ticks are an important part of publishing-ready
 figures. Matplotlib provides a totally configurable system for ticks. There are
-tick locators to specify where ticks should appear and tick formatters to make
-ticks look like the way you want. Major and minor ticks can be located and
+tick locators to specify where ticks should appear and tick formatters to give
+ticks the appearance you want. Major and minor ticks can be located and
 formatted independently from each other. Per default minor ticks are not shown,
 i.e. there is only an empty list for them because it is as NullLocator (see
 below).
@@ -980,8 +982,8 @@ Click on figure for solution.
 Beyond this tutorial
 ====================
 
-Matplotlib benefits from an extensive documentation as well as a large
-community of users and developpers. Here are some links of interests:
+Matplotlib benefits from extensive documentation as well as a large
+community of users and developpers. Here are some links of interest:
 
 Tutorials
 ---------
