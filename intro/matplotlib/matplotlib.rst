@@ -68,7 +68,7 @@ First step is to get the data for the sine and cosine functions:
    C,S = np.cos(X), np.sin(X)
 
 
-X is now a numpy array with 256 values ranging from -pi to +pi (included). C is
+X is now a numpy array with 256 values ranging from -π to +π (included). C is
 the cosine (256 values) and S is the sine (256 values).
 
 To run the example, you can type them in an IPython interactive session
@@ -256,7 +256,7 @@ Setting ticks
    :target: scripts/exercice_5.py
 
 Current ticks are not ideal because they do not show the interesting values
-(+/-pi,+/-pi/2) for sine and cosine. We'll change them such that they show only
+(+/-π,+/-π/2) for sine and cosine. We'll change them such that they show only
 these values.
 
 ::
@@ -284,7 +284,7 @@ Setting tick labels
    :target: scripts/exercice_6.py
 
 Ticks are now properly placed but their label is not very explicit. We could
-guess that 3.142 is pi but it would be better to make it explicit. When we set
+guess that 3.142 is π but it would be better to make it explicit. When we set
 tick values, we can also provide a corresponding label in the second argument
 list. Note that we'll use latex to allow for nice rendering of the label.
 
