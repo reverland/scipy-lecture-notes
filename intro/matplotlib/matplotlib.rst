@@ -15,12 +15,13 @@ from the `scipy lecture notes <http://scipy-lectures.github.com>`_.
 
 Sources are available `here <matplotlib.rst>`_. Figures are in the `figures
 <figures/>`_ directory and all scripts are located in the `scripts <scripts/>`_
-directory.
+directory. Github repository is `here
+<https://github.com/rougier/scipy-lecture-notes>`_
 
 All code and material is licensed under a Creative Commons Attribution 3.0
 United States License (CC-by) http://creativecommons.org/licenses/by/3.0/us
 
-Many thanks to **Bill Wing** for review and corrections.
+Many thanks to **Bill Wing** and **Christoph Dell** for review and corrections.
 
 
 Introduction
