@@ -16,12 +16,12 @@ from the `scipy lecture notes <http://scipy-lectures.github.com>`_.
 Sources are available `here <matplotlib.rst>`_. Figures are in the `figures
 <figures/>`_ directory and all scripts are located in the `scripts <scripts/>`_
 directory. Github repository is `here
-<https://github.com/rougier/scipy-lecture-notes>`_
+<https://github.com/rougier/scipy-lecture-notes/tree/euroscipy-2012/intro/matplotlib>`_
 
 All code and material is licensed under a Creative Commons Attribution 3.0
 United States License (CC-by) http://creativecommons.org/licenses/by/3.0/us
 
-Many thanks to **Bill Wing** and **Christoph Dell** for review and corrections.
+Many thanks to **Bill Wing** and **Christoph Deil** for review and corrections.
 
 
 Introduction
@@ -74,13 +74,13 @@ the cosine (256 values) and S is the sine (256 values).
 
 To run the example, you can type them in an IPython interactive session
 
-    $ ipython -pylab
+    $ ipython --pylab
 
 This brings us to the IPython prompt:
 
 ::
 
-    IPython 0.8.1 -- An enhanced Interactive Python.
+    IPython 0.13 -- An enhanced Interactive Python.
     ?       -> Introduction to IPython's features.
     %magic  -> Information about IPython's 'magic' % functions.
     help    -> Python's own help system.
@@ -392,7 +392,7 @@ the annotate command to display some text with an arrow.
    plot([t,t],[0,np.cos(t)], color ='blue', linewidth=2.5, linestyle="--")
    scatter([t,],[np.cos(t),], 50, color ='blue')
 
-   annotate(r'$sin(\frac{2\pi}{3})=-\frac{\sqrt{3}}{2}$',
+   annotate(r'$sin(\frac{2\pi}{3})=\frac{\sqrt{3}}{2}$',
             xy=(t, np.sin(t)), xycoords='data',
             xytext=(+10, +30), textcoords='offset points', fontsize=16,
             arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))

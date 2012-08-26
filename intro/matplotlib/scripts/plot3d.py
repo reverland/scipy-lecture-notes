@@ -9,8 +9,8 @@ X, Y = np.meshgrid(X, Y)
 R = np.sqrt(X**2 + Y**2)
 Z = np.sin(R)
 
-ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap='hot')
-ax.contourf(X, Y, Z, zdir='z', offset=-2, cmap='hot')
+ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.hot)
+ax.contourf(X, Y, Z, zdir='z', offset=-2, cmap=cm.hot)
 ax.set_zlim(-2,2)
 plt.xticks([]), plt.yticks([]), 
 ax.set_zticks([])

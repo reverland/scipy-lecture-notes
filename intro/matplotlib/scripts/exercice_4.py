@@ -12,5 +12,5 @@ plot(X, S, color="red", linewidth=2.5, linestyle="-")
 xlim(X.min()*1.1, X.max()*1.1)
 ylim(C.min()*1.1,C.max()*1.1)
 
-#savefig("../figures/exercice_4.png",dpi=72)
+# savefig("../figures/exercice_4.png",dpi=72)
 show()

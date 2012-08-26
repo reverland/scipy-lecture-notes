@@ -9,7 +9,7 @@ X,Y = np.meshgrid(x,y)
 
 axes([0.025,0.025,0.95,0.95])
 
-contourf(X, Y, f(X,Y), 8, alpha=.75, cmap='hot')
+contourf(X, Y, f(X,Y), 8, alpha=.75, cmap=cm.hot)
 C = contour(X, Y, f(X,Y), 8, colors='black', linewidth=.5)
 clabel(C, inline=1, fontsize=10)
 
