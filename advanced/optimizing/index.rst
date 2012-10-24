@@ -82,6 +82,7 @@ Useful when you have a large program to profile, for example the
 
 .. literalinclude:: demo.py
 
+To run it, you also need to download the :download:`ica module <ica.py>`.
 In IPython we can time the script:
 
 .. sourcecode:: ipython
@@ -152,7 +153,7 @@ source file, we decorate a few functions that we want to inspect with
 	results = fastica(pca.T, whiten=False)
 
 Then we run the script using the `kernprof.py
-<http://packages.python.org/line_profiler/kernprof.py>`_ program, with switches `-`
+<http://packages.python.org/line_profiler/kernprof.py>`_ program, with switches `-l`
 and `-v`::
 
     ~ $ kernprof.py -l -v demo.py
