@@ -322,7 +322,7 @@ and `numpy.ctypeslib <http://docs.scipy.org/doc/numpy/reference/routines.ctypesl
 
 For the following example, let's consider a C function in a library that takes
 an input and an output array, computes the cosine of the input array and
-stores the result in the output_array.
+stores the result in the output array.
 
 The library consists of the following header file (although this is not
 strictly needed for this example, we list it for completeness):
