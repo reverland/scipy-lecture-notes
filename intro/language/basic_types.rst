@@ -4,15 +4,23 @@ Basic types
 Numerical types
 ----------------
 
+.. tip::
+
+    Python supports the following numerical, scalar types:
+
 :Integer:
 
     >>> 1 + 1
     2
     >>> a = 4
+    >>> type(a)
+    <type 'int'>
 
 :Floats:
 
     >>> c = 2.1
+    >>> type(c)
+    <type 'float'>
 
 :Complex:
 
@@ -21,6 +29,8 @@ Numerical types
     1.5
     >>> a.imag
     0.5
+    >>> type(1. + 0j )
+    <type 'complex'>
 
 :Booleans:
 
@@ -32,11 +42,13 @@ Numerical types
     >>> type(test)
     <type 'bool'>
 
+.. tip::
 
+    A Python shell can therefore replace your pocket calculator, with the
+    basic arithmetic operations ``+``, ``-``, ``*``, ``/``, ``%`` (modulo)
+    natively implemented
 
-A Python shell can therefore replace your pocket calculator, with the
-basic arithmetic operations ``+``, ``-``, ``*``, ``/``, ``%`` (modulo)
-natively implemented::
+::
 
     >>> 7 * 3.
     21.0
@@ -45,191 +57,211 @@ natively implemented::
     >>> 8 % 3
     2
 
-.. warning:: Integer division
-
-    ::
-
-	>>> 3 / 2
-	1
-
-    **Trick**: use floats:: 
-
-	>>> 3 / 2.
-	1.5
-
-	>>> a = 3
-	>>> b = 2
-	>>> a / b
-	1
-	>>> a / float(b)
-	1.5
-
-
-* Scalar types: int, float, complex, bool::
-
-    >>> type(1)
-    <type 'int'>
-    >>> type(1.)
-    <type 'float'>
-    >>> type(1. + 0j )
-    <type 'complex'>
-
-    >>> a = 3
-    >>> type(a)
-    <type 'int'>
-
-
-
-* Type conversion::
+Type conversion (casting)::
 
     >>> float(1)
     1.0
 
+.. warning:: Integer division
+
+    ::
+
+        >>> 3 / 2
+        1
+
+    **Trick**: use floats::
+
+        >>> 3 / 2.
+        1.5
+
+        >>> a = 3
+        >>> b = 2
+        >>> a / b
+        1
+        >>> a / float(b)
+        1.5
+
+    .. tip::
+
+      If you explicitly want integer division use ``//``::
+
+        >>> 3.0 // 2
+        1.0
+
+      .. note::
+
+        The behaviour of the division operator has changed in Python 3. Please
+        look at the `python3porting
+        <http://python3porting.com/preparing.html#use-instead-of-when-dividing-integers>`_
+        website for details.
+
 Containers
 ------------
 
-Python provides many efficient types of containers, in which collections of
-objects can be stored.
+.. tip::
+
+    Python provides many efficient types of containers, in which
+    collections of objects can be stored.
 
 Lists
 ~~~~~
 
+.. tip::
 
-A list is an ordered collection of objects, that may have different
-types. For example ::
+    A list is an ordered collection of objects, that may have different
+    types. For example:
 
-    >>> l = [1, 2, 3, 4, 5]
-    >>> type(l)
+::
+
+    >>> L = ['red', 'blue', 'green', 'black', 'white']
+    >>> type(L)
     <type 'list'>
 
-* Indexing: accessing individual objects contained in the list::
+Indexing: accessing individual objects contained in the list::
 
-    >>> l[2]
-    3
+    >>> L[2]
+    'green'
 
-  Counting from the end with negative indices::
+Counting from the end with negative indices::
 
-    >>> l[-1]
-    5
-    >>> l[-2]
-    4
+    >>> L[-1]
+    'white'
+    >>> L[-2]
+    'black'
 
 .. warning::
 
     **Indexing starts at 0** (as in C), not at 1 (as in Fortran or Matlab)!
 
-* Slicing: obtaining sublists of regularly-spaced elements
+Slicing: obtaining sublists of regularly-spaced elements::
 
-::
-
-    >>> l
-    [1, 2, 3, 4, 5]
-    >>> l[2:4]
-    [3, 4]
+    >>> L
+    ['red', 'blue', 'green', 'black', 'white']
+    >>> L[2:4]
+    ['green', 'black']
 
 .. Warning::
 
-    Note that ``l[start:stop]`` contains the elements with indices ``i``
+    Note that ``L[start:stop]`` contains the elements with indices ``i``
     such as  ``start<= i < stop`` (``i`` ranging from ``start`` to
-    ``stop-1``). Therefore, ``l[start:stop]`` has ``(stop-start)`` elements.
+    ``stop-1``). Therefore, ``L[start:stop]`` has ``(stop-start)`` elements.
 
-**Slicing syntax**: `l[start:stop:stride]`
+**Slicing syntax**: ``L[start:stop:stride]``
 
-All slicing parameters are optional::
+.. tip::
 
-    >>> l[3:]
-    [4, 5]
-    >>> l[:3]
-    [1, 2, 3]
-    >>> l[::2]
-    [1, 3, 5]
+  All slicing parameters are optional::
+
+    >>> L
+    ['red', 'blue', 'green', 'black', 'white']
+    >>> L[3:]
+    ['black', 'white']
+    >>> L[:3]
+    ['red', 'blue', 'green']
+    >>> L[::2]
+    ['red', 'green', 'white']
 
 Lists are *mutable* objects and can be modified::
 
-    >>> l[0] = 28
-    >>> l
-    [28, 2, 3, 4, 5]
-    >>> l[2:4] = [3, 8] 
-    >>> l
-    [28, 2, 3, 8, 5]
+    >>> L[0] = 'yellow'
+    >>> L
+    ['yellow', 'blue', 'green', 'black', 'white']
+    >>> L[2:4] = ['gray', 'purple']
+    >>> L
+    ['yellow', 'blue', 'gray', 'purple', 'white']
 
 .. Note::
 
-    The elements of a list may have different types::
+   The elements of a list may have different types::
 
-	>>> l = [3, 2, 'hello']
-	>>> l
-	[3, 2, 'hello']
-	>>> l[1], l[2]
-	(2, 'hello')
+        >>> L = [3, -200, 'hello']
+        >>> L
+        [3, -200, 'hello']
+        >>> L[1], L[2]
+        (-200, 'hello')
+
+   .. tip::
 
     For collections of numerical data that all have the same type, it
     is often **more efficient** to use the ``array`` type provided by
     the ``numpy`` module. A NumPy array is a chunk of memory
     containing fixed-sized items.  With NumPy arrays, operations on
     elements can be faster because elements are regularly spaced in
-    memory and more operations are perfomed through specialized C
+    memory and more operations are performed through specialized C
     functions instead of Python loops.
 
 
-Python offers a large panel of functions to modify lists,
-or query them. Here are a few examples; for more details, see
-http://docs.python.org/tutorial/datastructures.html#more-on-lists
+.. tip::
+
+    Python offers a large panel of functions to modify lists, or query
+    them. Here are a few examples; for more details, see
+    http://docs.python.org/tutorial/datastructures.html#more-on-lists
 
 Add and remove elements::
 
-    >>> l = [1, 2, 3, 4, 5]
-    >>> l.append(6)
-    >>> l
-    [1, 2, 3, 4, 5, 6]
-    >>> l.pop()
-    6
-    >>> l
-    [1, 2, 3, 4, 5]
-    >>> l.extend([6, 7]) # extend l, in-place
-    >>> l
-    [1, 2, 3, 4, 5, 6, 7]
-    >>> l = l[:-2]
-    >>> l
-    [1, 2, 3, 4, 5]
+    >>> L = ['red', 'blue', 'green', 'black', 'white']
+    >>> L.append('pink')
+    >>> L
+    ['red', 'blue', 'green', 'black', 'white', 'pink']
+    >>> L.pop() # removes and returns the last item
+    'pink'
+    >>> L
+    ['red', 'blue', 'green', 'black', 'white']
+    >>> L.extend(['pink', 'purple']) # extend L, in-place
+    >>> L
+    ['red', 'blue', 'green', 'black', 'white', 'pink', 'purple']
+    >>> L = L[:-2]
+    >>> L
+    ['red', 'blue', 'green', 'black', 'white']
 
+Reverse::
 
-Reverse `l`::
-
-    >>> r = l[::-1]
+    >>> r = L[::-1]
     >>> r
-    [5, 4, 3, 2, 1]
+    ['white', 'black', 'green', 'blue', 'red']
+    >>> r2 = list(L)
+    >>> r2
+    ['red', 'blue', 'green', 'black', 'white']
+    >>> r2.reverse() # in-place
+    >>> r2
+    ['white', 'black', 'green', 'blue', 'red']
 
-Concatenate and repeat lists:: 
+Concatenate and repeat lists::
 
-    >>> r + l
-    [5, 4, 3, 2, 1, 1, 2, 3, 4, 5]
-    >>> 2 * r
-    [5, 4, 3, 2, 1, 5, 4, 3, 2, 1]
+    >>> r + L
+    ['white', 'black', 'green', 'blue', 'red', 'red', 'blue', 'green', 'black', 'white']
+    >>> r * 2
+    ['white', 'black', 'green', 'blue', 'red', 'white', 'black', 'green', 'blue', 'red']
 
-Sort r (in-place)::
 
-    >>> r.sort()
+.. tip::
+   
+  Sort::
+
+    >>> sorted(r) # new object
+    ['black', 'blue', 'green', 'red', 'white']
     >>> r
-    [1, 2, 3, 4, 5]
+    ['white', 'black', 'green', 'blue', 'red']
+    >>> r.sort()  # in-place
+    >>> r
+    ['black', 'blue', 'green', 'red', 'white']
 
+.. note:: **Methods and Object-Oriented Programming**
 
-.. Note:: **Methods and Object-Oriented Programming**
-
-    The notation ``r.method()`` (``r.sort(), r.append(3), l.pop()``) is our
+    The notation ``r.method()`` (r.append(3), L.pop()``) is our
     first example of object-oriented programming (OOP). Being a ``list``, the
     object `r` owns the *method* `function` that is called using the notation
     **.**. No further knowledge of OOP than understanding the notation **.** is
-    necessary for going through this tutorial.  
+    necessary for going through this tutorial.
 
 
 .. note:: **Discovering methods:**
 
-    In IPython: tab-completion (press tab)
+    Reminder: in Ipython: tab-completion (press tab)
 
     .. sourcecode:: ipython
 
-        In [28]: r.
+        In [28]: r.<TAB>
         r.__add__           r.__iadd__          r.__setattr__
         r.__class__         r.__imul__          r.__setitem__
         r.__contains__      r.__init__          r.__setslice__
@@ -246,11 +278,8 @@ Sort r (in-place)::
         r.__gt__            r.__reversed__      r.reverse
         r.__hash__          r.__rmul__          r.sort
 
-
-
-
 Strings
-~~~~~~~ 
+~~~~~~~
 
 Different string syntaxes (simple, double or triple quotes)::
 
@@ -259,14 +288,14 @@ Different string syntaxes (simple, double or triple quotes)::
     s = '''Hello,                 # tripling the quotes allows the
            how are you'''         # the string to span more than one line
     s = """Hi,
-	   what's up?"""
+    what's up?"""
 
 .. sourcecode:: ipython
 
     In [1]: 'Hi, what's up?'
     ------------------------------------------------------------
        File "<ipython console>", line 1
-	 'Hi, what's up?'
+        'Hi, what's up?'
                ^
     SyntaxError: invalid syntax
 
@@ -274,8 +303,10 @@ Different string syntaxes (simple, double or triple quotes)::
 The newline character is ``\n``, and the tab character is
 ``\t``.
 
-Strings are collections like lists. Hence they can be indexed and sliced,
-using the same syntax and rules.
+.. tip::
+
+    Strings are collections like lists. Hence they can be indexed and
+    sliced, using the same syntax and rules.
 
 Indexing::
 
@@ -287,9 +318,10 @@ Indexing::
     >>> a[-1]
     'o'
 
+.. tip::
 
-(Remember that negative indices correspond to counting from the right
-end.)
+    (Remember that negative indices correspond to counting from the right
+    end.)
 
 Slicing::
 
@@ -299,11 +331,14 @@ Slicing::
     'lo,'
     >>> a[2:10:2] # Syntax: a[start:stop:step]
     'lo o'
-    >>> a[::3] # every three characters, from beginning to end 
+    >>> a[::3] # every three characters, from beginning to end
     'hl r!'
 
-Accents and special characters can also be handled in Unicode strings (see
-http://docs.python.org/tutorial/introduction.html#unicode-strings).
+.. tip::
+   
+    Accents and special characters can also be handled in Unicode strings
+    (see
+    http://docs.python.org/tutorial/introduction.html#unicode-strings).
 
 
 A string is an **immutable object** and it is not possible to modify its
@@ -314,50 +349,50 @@ contents. One may however create new strings from the original one.
     In [53]: a = "hello, world!"
     In [54]: a[2] = 'z'
     ---------------------------------------------------------------------------
-    TypeError                                 Traceback (most recent call
-    last)
-
-    /home/gouillar/travail/sgr/2009/talks/dakar_python/cours/gael/essai/source/<ipython
-    console> in <module>()
-
+    Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
     TypeError: 'str' object does not support item assignment
+
     In [55]: a.replace('l', 'z', 1)
     Out[55]: 'hezlo, world!'
     In [56]: a.replace('l', 'z')
     Out[56]: 'hezzo, worzd!'
 
-Strings have many useful methods, such as ``a.replace`` as seen above.
-Remember the ``a.`` object-oriented notation and use tab completion or
-``help(str)`` to search for new methods.
+.. tip::
 
-.. Note:: 
+    Strings have many useful methods, such as ``a.replace`` as seen
+    above. Remember the ``a.`` object-oriented notation and use tab
+    completion or ``help(str)`` to search for new methods.
+
+.. seealso::
 
     Python offers advanced possibilities for manipulating strings,
-    looking for patterns or formatting. Due to lack of time this topic is
-    not addressed here, but the interested reader is referred to
+    looking for patterns or formatting. The interested reader is referred to
     http://docs.python.org/library/stdtypes.html#string-methods and
     http://docs.python.org/library/string.html#new-string-formatting
 
-* String substitution::
+String substitution::
 
     >>> 'An integer: %i; a float: %f; another string: %s' % (1, 0.1, 'string')
     'An integer: 1; a float: 0.100000; another string: string'
 
     >>> i = 102
-    >>> filename = 'processing_of_dataset_%03d.txt'%i
+    >>> filename = 'processing_of_dataset_%d.txt' % i
     >>> filename
     'processing_of_dataset_102.txt'
-
 
 Dictionaries
 ~~~~~~~~~~~~~
 
-A dictionary is basically an efficient table that **maps keys to
-values**. It is an **unordered** container::
+.. tip::
 
+    A dictionary is basically an efficient table that **maps keys to
+    values**. It is an **unordered** container
+
+::
 
     >>> tel = {'emmanuelle': 5752, 'sebastian': 5578}
-    >>> tel['francis'] = 5915 
+    >>> tel['francis'] = 5915
     >>> tel
     {'sebastian': 5578, 'francis': 5915, 'emmanuelle': 5752}
     >>> tel['sebastian']
@@ -369,12 +404,14 @@ values**. It is an **unordered** container::
     >>> 'francis' in tel
     True
 
-It can be used to conveniently store and retrieve values
-associated with a name (a string for a date, a name, etc.). See
-http://docs.python.org/tutorial/datastructures.html#dictionaries
-for more information.
+.. tip::
 
-A dictionary can have keys (resp. values) with different types::
+  It can be used to conveniently store and retrieve values
+  associated with a name (a string for a date, a name, etc.). See
+  http://docs.python.org/tutorial/datastructures.html#dictionaries
+  for more information.
+
+  A dictionary can have keys (resp. values) with different types::
 
     >>> d = {'a':1, 'b':2, 3:'hello'}
     >>> d
@@ -383,11 +420,10 @@ A dictionary can have keys (resp. values) with different types::
 More container types
 ~~~~~~~~~~~~~~~~~~~~
 
-* **Tuples**
+**Tuples**
 
 Tuples are basically immutable lists. The elements of a tuple are written
 between parentheses, or just separated by commas::
-
 
     >>> t = 12345, 54321, 'hello!'
     >>> t[0]
@@ -396,7 +432,7 @@ between parentheses, or just separated by commas::
     (12345, 54321, 'hello!')
     >>> u = (0, 2)
 
-* **Sets:** unordered, unique items::
+**Sets:** unordered, unique items::
 
     >>> s = set(('a', 'b', 'c', 'a'))
     >>> s
@@ -404,40 +440,66 @@ between parentheses, or just separated by commas::
     >>> s.difference(('a', 'b'))
     set(['c'])
 
-.. topic:: A bag of Ipython tricks
+Assignment operator
+-------------------
 
-    * Several Linux shell commands work in Ipython, such as ``ls``,
-    * ``pwd``,
-      ``cd``, etc.
+.. tip::
 
-    * To get help about objects, functions, etc., type ``help object``.
-      Just type help() to get started.
+ `Python library reference
+ <http://docs.python.org/reference/simple_stmts.html#assignment-statements>`_
+ says:
 
-    * Use **tab-completion** as much as possible: while typing the
-      beginning of an object's name (variable, function, module), press 
-      the **Tab** key and Ipython will complete the expression to match 
-      available names. If many names are possible, a list of names is 
-      displayed.
+  Assignment statements are used to (re)bind names to values and to
+  modify attributes or items of mutable objects.
 
-    * **History**: press the `up` (resp. `down`) arrow to go through all
-      previous (resp. next) instructions starting with the expression on
-      the left of the cursor (put the cursor at the beginning of the line
-      to go through all previous commands) 
+ In short, it works as follows (simple assignment):
 
-    * You may log your session by using the Ipython "magic command"
-      %logstart. Your instructions will be saved in a file, that you can
-      execute as a script in a different session.
+ #. an expression on the right hand side is evaluated, the corresponding
+    object is created/obtained
+ #. a **name** on the left hand side is assigned, or bound, to the
+    r.h.s. object
 
+Things to note:
 
-.. sourcecode:: ipython
+* a single object can have several names bound to it:
 
-    In [1]: %logstart commands.log
-    Activating auto-logging. Current session state plus future input
-    saved.
-    Filename       : commands.log
-    Mode           : backup
-    Output logging : False
-    Raw input log  : False
-    Timestamping   : False
-    State          : active
+    .. sourcecode:: ipython
 
+        In [1]: a = [1, 2, 3]
+        In [2]: b = a
+        In [3]: a
+        Out[3]: [1, 2, 3]
+        In [4]: b
+        Out[4]: [1, 2, 3]
+        In [5]: a is b
+        Out[5]: True
+        In [6]: b[1] = 'hi!'
+        In [7]: a
+        Out[7]: [1, 'hi!', 3]
+
+* to change a list *in place*, use indexing/slices:
+
+    .. sourcecode:: ipython
+
+        In [1]: a = [1, 2, 3]
+        In [3]: a
+        Out[3]: [1, 2, 3]
+        In [4]: a = ['a', 'b', 'c'] # Creates another object.
+        In [5]: a
+        Out[5]: ['a', 'b', 'c']
+        In [6]: id(a)
+        Out[6]: 138641676
+        In [7]: a[:] = [1, 2, 3] # Modifies object in place.
+        In [8]: a
+        Out[8]: [1, 2, 3]
+        In [9]: id(a)
+        Out[9]: 138641676 # Same as in Out[6], yours will differ...
+
+* the key concept here is **mutable vs. immutable**
+
+    * mutable objects can be changed in place
+    * immutable objects cannot be modified once created
+
+.. seealso:: A very good and detailed explanation of the above issues can
+   be found in David M. Beazley's article `Types and Objects in Python
+   <http://www.informit.com/articles/article.aspx?p=453682>`_.
